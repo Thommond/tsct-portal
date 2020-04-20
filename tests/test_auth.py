@@ -2,20 +2,27 @@ import pytest
 from flask import g, session
 
 
-def test_login(client):
+@pytest.mark.parametrize(('email', 'password', 'id'), (
+    ('teacher@stevenscollege.edu', 'qwerty', 1),
+    ('student@stevenscollege.edu', 'asdfgh', 2),
+    ('teacher1@stevenscollege.edu', 'password', 3),
+    ('teacher2@stevenscollege.edu', 'PASSWORD', 4),
+    ('student2@stevenscollege.edu', '123456789', 5)
+))
+def test_login(client, email, password, id):
 
     # Getting the index without login should return a redirect
     assert client.get('/').status_code == 302
 
-    response = client.post('/login', data={'email': 'teacher@stevenscollege.edu', 'password': 'qwerty'})
+    response = client.post('/login', data={'email': email, 'password': password})
     # Logging in should redirect to the index
     assert response.headers['Location'] == 'http://localhost/'
 
     with client:
         # Getting the index after a login should have session data
         client.get('/')
-        assert session['user_id'] == 1
-        assert g.user['email'] == 'teacher@stevenscollege.edu'
+        assert session['user_id'] == id
+        assert g.user['email'] == email
 
 
 #Check a bunch of incorrect and/or missing login credentials that should all fail

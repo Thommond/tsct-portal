@@ -4,7 +4,7 @@
 
 
 <header>
-  <a href="{{ url_for('course_editor.course_manage')}}">Back</a>
+  <a class="back" href="{{ url_for('course_editor.course_manage')}}">Back</a>
 </header>
 
 
@@ -12,71 +12,61 @@
   <p class="flash">{{ message }}</p>
 {% endfor %}
 
-<section class='edit'><!--Start of section edit-->
+<section class='edit'>
+  <!--Start of section edit-->
 
 
-<!--Form for the edit course page
+  <!--Form for the edit course page
 which has three inputs of data-->
 
-<form class="editFeature" action="{{ url_for( 'course_editor.course_edit', id=course['course_num'] ) }}" method="post">
+  <form class="editFeature" action="{{ url_for( 'course_editor.course_edit', id=course['course_num'] ) }}" method="post">
 
-  <p>The courses current information is displayed
-  please fill out all the fields and save changes.</p>
+    <p>The courses current information is displayed
+      please fill out all the fields and save changes.</p>
 
-<ul>
+    <ul>
 
+      <li>
 
+        <label for="editTitle">Course Title</label>
+        <!--Bold in styles-->
 
+        {{ course['course_title'] }}
 
-<li>
+        <input type="text" name="editTitle">
 
- <label for="editTitle">Course Title</label><!--Bold in styles-->
-
-  {{ course['course_title'] }}
-
-  <input type="text" name="editTitle" >
-
-
+      </li>
 
 
-</li>
+      <li>
+
+        <label for="editDesc">Course Description</label>
+
+        {{ course['description'] }}
+
+        <input type="text" name="editDesc">
+
+      </li>
 
 
+      <li>
 
-<li>
+        <label for="editCredit">Course Credits</label>
 
-<label for="editDesc">Course Description</label>
+        {{ course['credits'] }}
 
-  {{ course['description'] }}
+        <input type="text" name="editCredit">
 
-<input type="text" name="editDesc" >
+      </li>
 
+    </ul>
 
-
-</li>
-
-
-<li>
-
-  <label for="editCredit">Course Credits</label>
-
-  {{ course['credits'] }}
-
-  <input type="text" name="editCredit">
-
-
-
-</li>
-
-
-
-</ul>
-
-<button type="submit" name="courseSaveEdit" value="{{ course['course_num']}}" >Save</button>
+    <button type="submit" name="courseSaveEdit" value="{{ course['course_num']}}">Save</button>
 
   </form>
 
-</section><!--end of section edit-->
+</section>
+<!--end of section edit-->
 
 
 {% endblock%}

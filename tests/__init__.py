@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, g
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -42,22 +42,15 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
     # Teacher Course Editor routes
-    # --------------
+    # ---------------
     from . import course_editor
     app.register_blueprint(course_editor.bp)
-    # Teacher Session Editor Routes
-    #----------------
-    from . import session_editor
-    app.register_blueprint(session_editor.bp)
+
 
     # Register Routes
     # ---------------
     from . import auth
     app.register_blueprint(auth.bp)
-    # Roster Routes
-    # ---------------
-    from . import roster
-    app.register_blueprint(roster.bp)
 
     @app.route('/')
     @auth.login_required

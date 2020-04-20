@@ -1,0 +1,41 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}TSCT Portal - Edit Roster{% endblock %}
+
+{% block content %}
+
+<article class="roster">
+
+  <header>
+
+    <h2>{{ course['course_title'] + ' ' + session['name'] }} Roster</h2>
+
+    <a class="back" href="{{ url_for('session_editor.session_manage', id=course['course_num'])}}">Back</a>
+  </header>
+
+  <ul class="roster">
+    {% for student in students %}
+
+      <li>{{ student['name'] }}<span class="email">{{ student['email'] }}</span></li>
+
+    {% endfor %}
+  </ul>
+</article>
+
+{% for message in get_flashed_messages() %}
+
+  <p class="flash">{{ message}}</p>
+
+{% endfor %}
+
+<form class="addStudent" action="{{ url_for('roster.display_roster', course_id = course['course_num'], session_id = session['id']) }}" method="post">
+
+  <label for="email">Enter student email:
+
+    <input type="text" name="email">
+  </label>
+
+  <input type="submit" value="Add Student">
+</form>
+
+{% endblock %}

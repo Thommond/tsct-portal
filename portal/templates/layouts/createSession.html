@@ -6,7 +6,7 @@
   <!--The title of each session-->
   <h2>Create a new Session for {{ course['course_title'] }}</h2>
 
-<a href="{{ url_for('session_editor.session_manage', id=course['course_num'] )}}">Back</a>
+  <a class="back" href="{{ url_for('session_editor.session_manage', id=course['course_num'] )}}">Back</a>
 
 </header>
 
@@ -15,33 +15,35 @@
   <p class="flash">{{ message }}</p>
 {% endfor %}
 
-<section class='courseSession'><!--Start section courseSession-->
+<section class='courseSession'>
+  <!--Start section courseSession-->
 
 
-<!--Creates the session via the form info then updates-->
-<form class="" action="{{ url_for('session_editor.session_create', id=course['course_num']) }}" method="post">
+  <!--Creates the session via the form info then updates-->
+  <form class="" action="{{ url_for('session_editor.session_create', id=course['course_num']) }}" method="post">
 
 
-<label for="sessionTitle">Session Title</label>
-<input type="text" name="sessionTitle" required>
+    <label for="sessionTitle">Session Title</label>
+    <input type="text" name="sessionTitle" required>
 
 
-<label for="sessionTimes">Session Times</label>
-<input type="text" name="sessionTimes" required>
+    <label for="sessionTimes">Session Times</label>
+    <input type="text" name="sessionTimes" required>
 
 
-<label for="roomNumber">Room Number</label>
-<input type="text" name="roomNumber" required>
+    <label for="roomNumber">Room Number</label>
+    <input type="text" name="roomNumber" required>
 
 
-<label for="locations">Locations</label>
-<input type="text" name="locations" required>
+    <label for="locations">Locations</label>
+    <input type="text" name="locations" required>
 
 
-<input type="submit" name="sessionSubmit" value="Save">
+    <input type="submit" name="sessionSubmit" value="Save">
 
-</form>
+  </form>
 
 
-</section><!--End section courseSession-->
+</section>
+<!--End section courseSession-->
 {% endblock %}

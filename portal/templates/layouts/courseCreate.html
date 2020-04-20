@@ -7,55 +7,57 @@
 
   <h2>Create a New Course</h2>
 
-  <a href="{{ url_for('course_editor.course_manage')}}">Back</a>
+  <a class="back" href="{{ url_for('course_editor.course_manage')}}">Back</a>
 
 </header>
 
 {% for message in get_flashed_messages() %}
-  <p class="flash">{{ message }}</p>
+<p class="flash">{{ message }}</p>
 {% endfor %}
 
 <section class='courseCreation'>
 
   <!--Input for each field to create a course-->
-<form class="courseCreate" action="{{ url_for('course_editor.course_create') }}" method="post">
+  <form class="courseCreate" action="{{ url_for('course_editor.course_create') }}" method="post">
 
 
-<label for="courseTitle">Course Title</label>
+    <label for="courseTitle">Course Title</label>
 
-<input type="text" name="courseTitle" >
-
-
-
-<label for="description">Description</label>
-
-<textarea name="description" id=description ></textarea>
+    <input type="text" name="courseTitle">
 
 
 
-<label for="credits">Credits</label>
+    <label for="description">Description</label>
 
-<input type="text" name="courseCredits" >
+    <textarea name="description" id=description></textarea>
 
 
-<label for="major_name">Major</label>
 
-<select class="majorNames" name="major_name" >
+    <label for="credits">Credits</label>
 
-  <!--They have a choice of
+    <input type="text" name="courseCredits">
+
+
+    <label for="major_name">Major</label>
+
+    <select class="majorNames" name="major_name">
+
+      <!--They have a choice of
   majors to choose from-->
 
-  {% for major in all_majors %}<!--Loops through all the names,
+      {% for major in all_majors %}
+      <!--Loops through all the names,
     Allmajors list and id of the -->
 
-<option value="{{ major['id'] }}">{{ major['name'] }}</option>
-  {% endfor %}<!--end of loop-->
-</select>
+      <option value="{{ major['id'] }}">{{ major['name'] }}</option>
+      {% endfor %}
+      <!--end of loop-->
+    </select>
 
 
-<input type="submit" name="submit" value="Save">
+    <input type="submit" name="submit" value="Save">
 
-</form>
+  </form>
 
 </section>
 

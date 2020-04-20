@@ -1,52 +1,54 @@
 {% extends 'layouts/base.html' %}
 
+{% block title %}TSCT Portal - Courses{% endblock %}
+
 {% block content %}
 
 <header>
 
   <h2>Course Management</h2>
-  <a href="{{ url_for('index')}}">Home</a>
+  <a class="back" href="{{ url_for('index')}}">Home</a>
 
 </header>
 
 
-<section course='teacher_courses'><!--Start of teacher edit section-->
-<h3>Courses</h3>
+<section class='teacher_courses'>
+  <!--Start of teacher edit section-->
+  <h3>Courses</h3>
 
-<ul>
+  <ul>
 
-  {% for course in courses %}<!--Start of courses loop-->
+    {% for course in courses %}
+    <!--Start of courses loop-->
 
-    {% if g.user['id'] == course['teacher_id'] %}<!--Only display if
+      {% if g.user['id'] == course['teacher_id'] %}
+    <!--Only display if
     the course has users teacher_id -->
 
-  <li>
+        <li>
 
-    <h4>{{ course['course_title'] }}</h4><!--Name of each course from database-->
+          <h4>{{ course['course_title'] }}</h4>
+          <!--Name of each course from database-->
 
+          <div class="links">
 
-    <a href="{{ url_for('course_editor.course_edit', id=course['course_num']) }}">Edit</a>
+            <a href="{{ url_for('course_editor.course_edit', id=course['course_num']) }}">Edit</a>
 
-    <a href="{{ url_for('session_editor.session_manage', id=course['course_num'])}}">Sessions</a>
+            <a href="{{ url_for('session_editor.session_manage', id=course['course_num'])}}">Sessions</a>
+          </div>
+        </li>
 
-  </li>
+      {% endif %}
+    <!--End g.user if-->
 
+    {% endfor %}
+    <!--End of courses loop-->
 
+  </ul>
 
-      {% if not loop.last %}
-    <hr>
+  <h3>Click the + below to create a new course</h3>
 
-      {% endif %}<!--End style if-->
-
-    {% endif %}<!--End g.user if-->
-
-  {% endfor %}<!--End of courses loop-->
-
-</ul>
-
-<h3>Click the  + below to create a new course</h3>
-
-<a href="{{ url_for('course_editor.course_create')}}" name="createButton">+</a>
+  <a href="{{ url_for('course_editor.course_create')}}" name="createButton">+</a>
 
 </section><!-- end of teacher edit section-->
 {% endblock %}

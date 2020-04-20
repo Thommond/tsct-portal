@@ -6,13 +6,13 @@ from portal.auth import login_required, teacher_required
 
 bp = Blueprint("session_editor", __name__)
 
-@bp.route("/courseSessions/<int:id>/edit/<int:sessions_id>", methods=('GET', 'POST'))
+@bp.route("/courses/<int:course_id>/sessions/<int:sessions_id>/edit", methods=('GET', 'POST'))
 @login_required
 @teacher_required
-def session_edit(id, sessions_id):
+def session_edit(course_id, sessions_id):
     """Allows teachers to edit a specific session of a
     specific course"""
-    course = course_editor.get_course(id)
+    course = course_editor.get_course(course_id)
     session = get_session(sessions_id)
     if g.user['id'] != course['teacher_id']:
         return redirect(url_for('index'))
@@ -37,7 +37,7 @@ def session_edit(id, sessions_id):
                         location = %s
                         WHERE id = %s AND course_id = %s
                         """,
-                        (name, times, room, location, sessions_id, id, )
+                        (name, times, room, location, sessions_id, course_id, )
                         )
                     con.commit()
 
@@ -49,7 +49,7 @@ def session_edit(id, sessions_id):
     return render_template("layouts/editSession.html", course=course, session=session)
 
 
-@bp.route("/createSession/course/<int:id>/", methods=('GET','POST'))
+@bp.route("/courses/<int:id>/sessions/create", methods=('GET','POST'))
 @login_required
 @teacher_required
 def session_create(id):
@@ -98,7 +98,7 @@ def session_create(id):
     return render_template("layouts/createSession.html", course=course)
 
 
-@bp.route("/courseSessions/<int:id>", methods=('GET', 'POST'))
+@bp.route("/courses/<int:id>/sessions", methods=('GET', 'POST'))
 @login_required
 @teacher_required
 def session_manage(id):
@@ -118,16 +118,6 @@ def session_manage(id):
     cur.close()
 
     return render_template("layouts/sessionManage.html", course=course, sessions=sessions)
-
-
-@bp.route("/courseSession/<int:id>/rosterCreate/<int:roster_id>", methods=('GET','POST'))
-def create_roster(id, roster_id):
-    pass
-
-@bp.route("/courseSession/<int:id>/rosterEdit/<int:roster_id>")
-def edit_roster(id, roster_id):
-    pass
-
 
 
 def get_session(sessions_id):

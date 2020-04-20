@@ -1,12 +1,14 @@
 {% extends 'layouts/base.html' %}
 
+{% block title %}TSCT Portal - Sessions{% endblock %}
+
 {% block content %}
 
 <header>
 
   <h2>Sessions for course {{ course['course_title']}}</h2>
 
-  <a href="{{ url_for('course_editor.course_manage')}}">Back</a>
+  <a class="back" href="{{ url_for('course_editor.course_manage')}}">Back</a>
 
 </header>
 
@@ -15,22 +17,30 @@
 
 <h3>Sessions</h3>
 
-  {% for session in sessions %}<!--For a session in the object sessions-->
+  <ul>
 
+    {% for session in sessions %}<!--For a session in the object sessions-->
 
-    {% if session['course_id'] == course['course_num'] %}<!--Display if only session cours_id is = to course course_num-->
+      {% if session['course_id'] == course['course_num'] %}<!--Display if only session cours_id is = to course course_num-->
 
-      <h4>{{ session['name'] }}</h4>
+        <li>
+          <h4>{{ session['name'] }}</h4>
 
-      <a href="{{ url_for('session_editor.session_edit', id=session['course_id'], sessions_id=session['id']) }}">Edit</a>
+          <div class="links">
 
-    {% endif %}
+            <a href="{{ url_for('roster.display_roster', course_id=session['course_id'], session_id=session['id']) }}">Roster</a>
 
-  {% endfor %}
+            <a href="{{ url_for('session_editor.session_edit', course_id=session['course_id'], sessions_id=session['id']) }}">Edit</a>
+          </div>
+        </li>
+      {% endif %}
+
+    {% endfor %}
+  </ul>
 
 
   <!--Below is for create Session link and info-->
-  <h4>Click the + below to create a new session</h4>
+  <h3>Click the + below to create a new session</h3>
 
   <a href="{{ url_for('session_editor.session_create', id=course['course_num'] )}}">+</a>
 

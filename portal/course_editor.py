@@ -8,7 +8,7 @@ from portal.auth import login_required, teacher_required
 bp = Blueprint("course_editor", __name__)
 
 
-@bp.route("/courseManagement", methods=('GET', 'POST'))  # Management Page
+@bp.route("/courses", methods=('GET', 'POST'))  # Management Page
 @login_required
 @teacher_required
 def course_manage():
@@ -24,7 +24,7 @@ def course_manage():
     return render_template("layouts/courseMan.html", courses=courses)
 
 
-@bp.route("/courseCreate", methods=('GET', 'POST'))  # Course Create
+@bp.route("/courses/create", methods=('GET', 'POST'))  # Course Create
 @login_required
 @teacher_required
 def course_create():
@@ -68,7 +68,7 @@ def course_create():
 
 
 # Needs new template
-@bp.route("/courseEdit/<int:id>", methods=('GET', 'POST'))
+@bp.route("/courses/<int:id>/edit", methods=('GET', 'POST'))
 @login_required
 @teacher_required
 

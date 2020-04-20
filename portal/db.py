@@ -7,6 +7,7 @@ import csv
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+from werkzeug.security import check_password_hash, generate_password_hash
 
 def get_db():
     """Get a PostgreSQL database connection object."""
@@ -90,10 +91,18 @@ def insert_users():
                 next(reader)
                 # insert data into "users" database
                 for row in reader:
+                    #setting list index to variables
+                    ID = row[0]
+                    NAME = row[1]
+                    MAJOR_ID = row[2]
+                    EMAIL = row[3]
+                    PASSWORD = row[4]
+                    ROLE = row[5]
                     cur.execute(
-                        "INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)",
-                        row
-                    )
+                        #inserting variables with user data into database
+                       "INSERT INTO users (id,name,major_id,email,password,role) VALUES (%s, %s, %s, %s, %s, %s)",
+                       (ID, NAME, MAJOR_ID, EMAIL, generate_password_hash(PASSWORD), ROLE,)
+                       )
 
             with open('./portal/data/courses.csv', 'r') as f:
                 reader = csv.reader(f)
