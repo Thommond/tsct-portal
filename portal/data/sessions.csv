@@ -1,7 +1,0 @@
-id,times,name,room_number,location,course_id
-1,"Th 5:30 - 8:30 pm",ENG 216 A,309,"Main campus, Mellor",1
-2,"Tu Th 12:30 - 1:45 pm",ENG 216 B,12,"Main campus Mellor",1
-3,"M W F 1:00 - 1:50 pm",MATH 126 A,207,"Main campus Mellor",2
-4,"Tu, Th 8:00 - 9:15 am",MATH 126 H,307,"Main campus Mellor",2
-5,"M, W, F 1:00 - 1:50 pm",PHYS 106 A,451,Orange campus,3
-6,Th 6:00 - 9:00 pm,PHYS 106 C,452,Orange campus,3

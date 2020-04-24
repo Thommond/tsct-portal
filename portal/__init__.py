@@ -1,8 +1,37 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 
 from werkzeug.security import check_password_hash, generate_password_hash
+
+##########################
+####Custom Error Pages####
+##########################
+def handle_exception(e):
+    # pass through HTTP errors
+    if isinstance(e, HTTPException):
+        return e
+
+    # now you're handling non-HTTP exceptions only
+    return render_template("500.html", e=e), 500
+
+
+def forbidden(e):
+    """Notifies the user that the previous action they attempted is not allowed."""
+    return render_template('layouts/errors/403.html'), 403
+
+def page_not_found(e):
+    """Tells the user what they are looking for is not there."""
+    return render_template('layouts/errors/404.html'), 404
+
+def gone(e):
+    """Notifies the user the resource they are looking for is no longer here"""
+    return render_template('layouts/errors/410.html'), 410
+
+def bad_request(e):
+    """Notifies the user that the request they have attempted is not excepted"""
+    return render_template('layouts/errors/400.html'), 400
+########################
 
 def create_app(test_config=None):
     """Factory to configure and return a Flask application.
@@ -12,6 +41,12 @@ def create_app(test_config=None):
 
     # Create the Flask application object using this module's name
     app = Flask(__name__, instance_relative_config=True)
+    # Registering the auto-matic error pages
+    app.register_error_handler(404, page_not_found)
+    app.register_error_handler(403, forbidden)
+    app.register_error_handler(400, bad_request)
+    app.register_error_handler(500, handle_exception)
+    app.register_error_handler(410, gone)
 
     # Configure App
     # -------------
@@ -37,14 +72,16 @@ def create_app(test_config=None):
         # App configuration specifically for tests
         app.config.from_mapping(test_config)
 
+
+
     # Setup Database
     # --------------
     from . import db
     db.init_app(app)
     # Teacher Course Editor routes
     # --------------
-    from . import course_editor
-    app.register_blueprint(course_editor.bp)
+    from . import courses
+    app.register_blueprint(courses.bp)
 
     # Assignement Routes
     # --------------
@@ -53,8 +90,8 @@ def create_app(test_config=None):
 
     # Sessions Routes
     # --------------
-    from . import session_editor
-    app.register_blueprint(session_editor.bp)
+    from . import sessions
+    app.register_blueprint(sessions.bp)
 
     # Register Routes
     # ---------------
@@ -64,6 +101,16 @@ def create_app(test_config=None):
     # ---------------
     from . import roster
     app.register_blueprint(roster.bp)
+
+    #Submission Route
+    from . import submissions
+    app.register_blueprint(submissions.bp)
+
+    # Student View Routes
+    # -------------------
+    from . import student_views
+    app.register_blueprint(student_views.bp)
+
 
     @app.route('/')
     @auth.login_required

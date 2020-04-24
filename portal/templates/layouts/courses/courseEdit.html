@@ -6,7 +6,7 @@
 
 
 <header>
-  <a class="back" href="{{ url_for('course_editor.course_manage')}}">Back</a>
+  <a class="back" href="{{ url_for('courses.course_manage')}}">Back</a>
 </header>
 
 
@@ -21,7 +21,7 @@
   <!--Form for the edit course page
 which has three inputs of data-->
 
-  <form class="editFeature" action="{{ url_for( 'course_editor.course_edit', course_id=course['course_num'] ) }}" method="post">
+  <form class="editFeature" action="{{ url_for( 'courses.course_edit', course_id=course['course_num'] ) }}" method="post">
 
     <p>The courses current information is displayed
       please fill out all the fields and save changes.</p>

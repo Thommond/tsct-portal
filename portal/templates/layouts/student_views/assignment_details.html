@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Assignment Details{% endblock %}
+
+{% block content %}
+<header>
+
+  <h2>Details for {{ assignment['assign_name'] }}</h2>
+
+  <a class="back" href="{{ url_for('student_views.session_assignments', session_id=session['id'], course_id=session['course_id']) }}">Back</a>
+
+</header>
+
+<table class="schedule">
+
+  <tr>
+
+    <th>Title</th>
+    <th>Description</th>
+    <th>Points</th>
+    <th>Due Date</th>
+
+  </tr>
+
+  <tr>
+
+    <td>{{ assignment['assign_name'] }}</td>
+    <td>{{ assignment['description'] }}</td>
+    <td>{{ assignment['points'] }}</td>
+    <td>{{ assignment['due_time'] }}</td>
+
+  </tr>
+
+</table>
+
+
+{% endblock %}

@@ -173,6 +173,42 @@ div.links {
 }
 
 
+span.underline {
+  text-decoration: underline;
+}
+
+header.submissions {
+  margin-bottom: 0;
+}
+
+ul.submissions {
+  border: 1px solid #8B1E41;
+  margin-bottom: 1rem;
+}
+
+ul.submissions li {
+  align-items: center;
+  border: 1px solid #8B1E41;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 1rem;
+}
+
+ul.submissions li:nth-child(2n) {
+  background-color: lightgrey;
+
+table, th, td {
+  border: 2px solid #8B1E41;
+}
+
+th {
+  background: #8B1E41;
+  color: white;
+
+}
+
+
 @media (min-width: 760px) {
   h1, h2, h3, h4, h5, h6 {
     margin-left: 1rem;
@@ -217,6 +253,24 @@ div.links {
 }
 
 
+
+/**
+*Error Pages
+*/
+
+div.error_pages {
+  display: flex;
+  flex-direction: column;
+  font-size: 15pt;
+  background: #8B1E41;
+}
+
+div.error_pages a:hover {
+  color:white;
+}
+
+
+
 /**
  * Forms
  */
@@ -230,7 +284,7 @@ form {
   width: 265px;
 }
 
-input {
+input, textarea {
   margin-top: 1rem;
   width: 100%;
 }
@@ -239,6 +293,8 @@ input {
 form.session label, form.assign label {
   border-bottom: 2px solid white;
 
+}
+
 label {
 
   display: block;
@@ -246,6 +302,7 @@ label {
 }
 
 textarea {
+  resize: none;
   width: 100%;
 }
 
@@ -255,13 +312,22 @@ form.editFeature label {
   margin: 1rem 0 0 0;
 }
 
-
-
-
 form.session > ul > li, form.assign > ul > li {
   flex-direction: column;
 }
 
+label.grade div {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem auto 0 0;
+  text-decoration: none;
+  width: 95px;
+}
+
+label.grade input {
+  margin: 0;
+}
 
 
 @media (min-width: 760px) {

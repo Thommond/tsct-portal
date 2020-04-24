@@ -1,0 +1,15 @@
+{% extends 'layouts/errors/error_page.html' %}
+
+{% block title %}Bad Request 400{% endblock %}
+
+{% block content %}
+<div class="error_pages">
+
+<h2>The request you attempted is Bad and not allowed</h2>
+
+<p>Either press the back button on the browser or click the home link below</p>
+
+<a href="{{ url_for('index')}}">Portal Home</a>
+
+</div>
+{% endblock %}

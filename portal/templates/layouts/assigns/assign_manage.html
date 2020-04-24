@@ -7,13 +7,13 @@
 <header>
 
   <h2>Assignment Management</h2>
-  <a href="{{ url_for('session_editor.session_manage', course_id=session['course_id'], session_id=session['id'])}}" class='back'>Back</a>
+  <a href="{{ url_for('sessions.session_manage', course_id=session['course_id'], session_id=session['id'])}}" class='back'>Back</a>
 
 </header>
 
 <section class='assignments'>
 
-  <h3>Assignments for {{ session['name'] }}</h3>
+  <h3>Assignments for {{ session['session_name'] }}</h3>
 
   <ul>
 
@@ -26,6 +26,8 @@
         <h4>{{ assignment['assign_name'] }}</h4>
 
         <div class="links">
+
+          <a href="{{ url_for('submissions.submission_list', course_id=session['course_id'], session_id=session['id'], assignment_id=assignment['id']) }}">Submissions</a>
 
           <a href="{{url_for('assign.assign_edit', assign_id=assignment['id'], sessions_id=assignment['sessions_id'], course_id=session['course_id'] )}}">Edit</a>
 
