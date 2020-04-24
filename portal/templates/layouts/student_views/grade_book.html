@@ -1,0 +1,26 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Grade Page{% endblock %}
+
+{% block content %}
+<header>
+
+  <h2>Grades for {{ course['course_title'] }}</h2>
+
+  <a class="back" href="{{ url_for('student_views.view_schedule') }}">Back</a>
+
+</header>
+
+<ul>
+
+  {% for submission in submissions %}
+
+  <li>{{ submission['grade'] }}
+    <p>{{ submission['feedback'] }}</p>
+  </li>
+
+  {% endfor %}
+
+</ul>
+
+{% endblock %}
