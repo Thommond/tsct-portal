@@ -61,7 +61,7 @@ def assign_create(sessions_id, course_id):
 
                 flash(error)
 
-    return render_template('layouts/assigns/assign_create.html', session=session)
+    return render_template('assigns/assign_create.html', session=session)
 
 @bp.route('/course/<int:course_id>/session/<int:sessions_id>/assignments/', methods=('GET', ))
 @login_required
@@ -90,7 +90,7 @@ def assign_manage(course_id, sessions_id):
 
     cur.close()
 
-    return render_template("layouts/assigns/assign_manage.html", assignments=assignments, session=session)
+    return render_template("assigns/assign_manage.html", assignments=assignments, session=session)
 
 @bp.route('/course/<int:course_id>/session/<int:sessions_id>/assignment/Edit/<int:assign_id>/', methods=('GET', 'POST'))
 @login_required
@@ -153,7 +153,7 @@ def assign_edit(course_id, assign_id, sessions_id):
 
                 flash(error)
 
-    return render_template('layouts/assigns/assign_edit.html', session=session, assignment= assignment)
+    return render_template('assigns/assign_edit.html', session=session, assignment= assignment)
 
 def get_assignment(assign_id):
     """Gets the assiment from the database"""

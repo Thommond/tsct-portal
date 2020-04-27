@@ -32,6 +32,7 @@ def test_add_grade(client):
 
         assert b'25' in response.data
         assert b'good' in response.data
+        assert b'Grade Entered' in response.data
 
 
 @pytest.mark.parametrize(('email', 'password', 'route', 'error'), (

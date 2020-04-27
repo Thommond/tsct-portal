@@ -9,9 +9,15 @@
   <a class="back" href="{{ url_for('submissions.submission_list', course_id = session['course_id'], session_id = session['id'], assignment_id = assignment['id'], submission_id = submission['id']) }}">Back</a>
 </header>
 
-{% for message in get_flashed_messages() %}
-  <p class="flash">{{ message }}</p>
-{% endfor %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <p class="{{ category }}">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
 
 <form class="submit_grade" method="post">
 

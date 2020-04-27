@@ -132,6 +132,7 @@ def grade_submission(course_id, session_id, assignment_id, submission_id):
         grade = request.form['grade']
         feedback = request.form['feedback']
         error = None
+        success_message = None
 
         # Check that grade is a number
         try:
@@ -156,7 +157,13 @@ def grade_submission(course_id, session_id, assignment_id, submission_id):
                     cur.execute('SELECT * FROM submissions WHERE id = %s', (submission_id,))
                     submission = cur.fetchone()
 
+                    success_message = 'Grade Entered'
 
-        flash(error)
+
+        if error != None:
+            flash(error, 'flash')
+
+        if success_message != None:
+            flash(success_message, 'success')
 
     return render_template('submissions/feedback.html', assignment=assignment, student=student['name'], session=session, submission=submission)

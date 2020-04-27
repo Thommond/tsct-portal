@@ -358,3 +358,27 @@ p.flash {
     width: 35vw;
   }
 }
+
+
+/**
+* Success Messages
+*/
+
+p.success {
+  align-items: center;
+  border: 1px solid black;
+  box-shadow: 2px 2px 5px black;
+  color: green;
+  display: flex;
+  font-weight: bold;
+  height: 3rem;
+  justify-content: center;
+  margin: 2rem auto 0;
+  width: 265px;
+}
+
+@media (min-width: 760px) {
+  p.success {
+    width: 35vw;
+  }
+}

@@ -41,7 +41,7 @@ def view_schedule():
 
     cur.close()
 
-    return render_template("layouts/student_views/schedule.html", infos=infos)
+    return render_template("student_views/schedule.html", infos=infos)
 
 @bp.route("/course/<int:course_id>/session/<int:session_id>/your_assignments", methods=('GET', 'POST'))
 @login_required
@@ -59,7 +59,7 @@ def session_assignments(session_id, course_id):
             (session_id,))
     assignments = cur.fetchall()
     cur.close()
-    return render_template("layouts/student_views/your_assignments.html", session=session, assignments=assignments, course=course)
+    return render_template("student_views/your_assignments.html", session=session, assignments=assignments, course=course)
 
 
 @bp.route("/course/<int:course_id>/session/<int:session_id>/assignment_details/<int:assign_id>", methods=('GET', 'POST'))
@@ -75,7 +75,7 @@ def assign_view(assign_id, session_id, course_id):
     if session['id'] != assignment['sessions_id']:
         abort(403)
 
-    return render_template("layouts/student_views/assignment_details.html", session=session, assignment=assignment, course=course)
+    return render_template("student_views/assignment_details.html", session=session, assignment=assignment, course=course)
 
 @bp.route("/course/<int:course_id>/session/<int:session_id>/grades", methods=('GET', 'POST'))
 @login_required
@@ -87,7 +87,7 @@ def grade_book(session_id, course_id):
     """Allows student to veiw grades for a course"""
     if session['course_id'] != course['course_num']:
         abort(403)
-        
+
     return render_template("layouts/student_views/grade_book.html", course=course, session=session, submissions=submissions)
 
 def get_submissions(session_id):
