@@ -5,9 +5,9 @@
 {% block content %}
 <header>
 
-  <h2>Edit Session {{ session['name'] }}</h2>
+  <h2>Edit Session {{ session['session_name'] }}</h2>
 
-  <a class="back" href="{{ url_for('session_editor.session_manage', id=course['course_num']) }}">Back</a>
+  <a class="back" href="{{ url_for('sessions.session_manage', course_id=course['course_num']) }}">Back</a>
 
 </header>
 
@@ -22,7 +22,7 @@
 
 
   <!--Updates the selected info via the forms and route-->
-  <form class="session" action="{{ url_for('session_editor.session_edit', course_id=session['course_id'], sessions_id=session['id']) }}" method="post">
+  <form class="session" action="{{ url_for('sessions.session_edit', course_id=session['course_id'], sessions_id=session['id']) }}" method="post">
 
     <ul>
 
@@ -30,9 +30,7 @@
 
         <label for="editName">Name</label>
 
-        {{ session['name'] }}
-
-        <input type="text" name="editName" required>
+        <input type="text" name="editName" value="{{ session['session_name'] }}" required>
 
       </li>
 
@@ -42,9 +40,7 @@
 
         <label for="editTimes">Times</label>
 
-        {{ session['times'] }}
-
-        <input type="text" name="editTimes" required>
+        <textarea type="text" name="editTimes" required>{{ session['times'] }}</textarea>
 
       </li>
 
@@ -54,9 +50,7 @@
 
         <label for="editRoom">Room Number</label>
 
-        {{ session['room_number'] }}
-
-        <input type="text" name="editRoom" required>
+        <input type="text" name="editRoom" value="{{ session['room_number'] }}" required>
 
       </li>
 
@@ -66,9 +60,7 @@
 
         <label for="editLocal">Location</label>
 
-        {{ session['location'] }}
-
-        <input type="text" name="editLocal" required>
+        <textarea type="text" name="editLocal" required>{{ session['location'] }}</textarea>
 
       </li>
 

@@ -1,0 +1,23 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}TSCT Portal - Submissions{% endblock %}
+
+{% block content %}
+
+<header class="submissions">
+  <h2>Submissons for assignment: {{ assignment['assign_name'] }}</h2>
+  <a class="back" href="{{ url_for('assign.assign_manage', course_id = session['course_id'], sessions_id = session['id']) }}">Back</a>
+</header>
+
+<ul class="submissions">
+  {% for submission in submissions %}
+
+    <li>
+      <p>{{ submission['name'] }}</p>
+      <a href="{{ url_for('submissions.grade_submission', course_id=session['course_id'], session_id=session['id'], assignment_id=assignment['id'], submission_id=submission['id']) }}">Enter Grade</a>
+    </li>
+
+  {% endfor %}
+</ul>
+
+{% endblock %}

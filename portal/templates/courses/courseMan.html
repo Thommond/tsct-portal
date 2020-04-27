@@ -18,12 +18,10 @@
 
   <ul>
 
-    {% for course in courses %}
-    <!--Start of courses loop-->
+  {% for course in courses %}
 
-      {% if g.user['id'] == course['teacher_id'] %}
-    <!--Only display if
-    the course has users teacher_id -->
+    {% if g.user['id'] == course['teacher_id'] %}
+
 
         <li>
 
@@ -32,23 +30,21 @@
 
           <div class="links">
 
-            <a href="{{ url_for('course_editor.course_edit', id=course['course_num']) }}">Edit</a>
+            <a href="{{ url_for('courses.course_edit', course_id=course['course_num']) }}">Edit</a>
 
-            <a href="{{ url_for('session_editor.session_manage', id=course['course_num'])}}">Sessions</a>
+            <a href="{{ url_for('sessions.session_manage', course_id=course['course_num'])}}">Sessions</a>
           </div>
         </li>
 
       {% endif %}
-    <!--End g.user if-->
 
     {% endfor %}
-    <!--End of courses loop-->
 
   </ul>
 
   <h3>Click the + below to create a new course</h3>
 
-  <a href="{{ url_for('course_editor.course_create')}}" name="createButton">+</a>
+  <a href="{{ url_for('courses.course_create')}}" name="createButton">+</a>
 
 </section><!-- end of teacher edit section-->
 {% endblock %}

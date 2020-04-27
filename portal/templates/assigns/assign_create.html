@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}TSCT Portal - Assignment Create{% endblock %}
+
+{% block content%}
+
+<header>
+
+  <h2>Create a New Assignment for {{ session['session_name'] }}</h2>
+
+<a href="{{ url_for('assign.assign_manage', sessions_id=session['id'], course_id=session['course_id'] )}}" class='back'>Back</a>
+
+</header>
+
+{% for message in get_flashed_messages() %}
+  <p class="flash">{{ message }}</p>
+{% endfor %}
+
+<section class='assignments'>
+
+  <form class="assign" action="{{ url_for('assign.assign_create', sessions_id=session['id'], course_id=session['course_id'] )}}" method="post">
+    <!--createing a assignment name-->
+    <label for="name">Name
+      <input type="text" name="name">
+    </label>
+
+    <!--create a description-->
+    <label for="description">Description
+      <input type="text" name="description">
+    </label>
+
+    <!--adding points-->
+    <label for="points">Points
+      <input type="number" name="points">
+    </label>
+
+    <!--adding due_date-->
+    <label for="due_date">Due Date
+      <input type="datetime-local" name="due_date">
+    </label>
+
+    <input type="submit" name="assign_creation_button" value="Save">
+
+  </form>
+
+</section>
+{% endblock %}

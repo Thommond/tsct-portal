@@ -44,13 +44,13 @@ def test_roster_redirect(client):
         client.post('/login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
         response = client.get('courses/216/sessions/1/roster')
 
-        assert response.status_code == 302
-        assert response.headers['Location'] == 'http://localhost/'
+        assert response.status_code == 403
+
 
     with client:
         # If a teacher is not the session's teacher, they should also get redirected
         client.post('/login', data={'email': 'teacher@stevenscollege.edu', 'password': 'qwerty'})
         response = client.get('/courses/216/sessions/1/roster')
 
-        assert response.status_code == 302
-        assert response.headers['Location'] == 'http://localhost/'
+        assert response.status_code == 403
+        

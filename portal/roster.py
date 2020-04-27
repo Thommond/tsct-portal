@@ -1,5 +1,5 @@
 from flask import (
-    render_template, Blueprint, session, g, flash, request, redirect, url_for
+    render_template, Blueprint, session, g, flash, request, redirect, url_for, abort
 )
 from . import db
 from . import auth
@@ -30,7 +30,10 @@ def display_roster(course_id, session_id):
 
     # If the logged-in teacher is not the same as the course's teacher, redirect them
     if g.user['id'] != course['teacher_id']:
-        return redirect(url_for('index'))
+        abort(403)
+
+    if course['course_num'] != session['course_id']:
+        abort(403)
 
     if request.method == 'POST':
 

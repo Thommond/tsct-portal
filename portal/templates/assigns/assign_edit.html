@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}TSCT Portal - Assignment Edit{% endblock %}
+
+{% block content%}
+
+<header>
+
+
+  <h2>Edit assignment {{ assignment['assign_name'] }}</h2>
+
+  <a href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id'] )}}" class='back'>Back</a>
+
+</header>
+
+{% for message in get_flashed_messages() %}
+  <p class="flash">{{ message }}</p>
+{% endfor %}
+
+<section class='assignments'>
+
+  <form class="assign" action="{{ url_for('assign.assign_edit', sessions_id=session['id'], assign_id=assignment['id'], course_id=session['course_id'] )}}" method="post">
+
+    <ul>
+
+      <li>
+
+        <label for="edit_name">Name</label>
+
+        <input type="text" name="edit_name" value="{{ assignment['assign_name']}}">
+
+      </li>
+
+
+      <li>
+
+        <label for="edit_desc">Description</label>
+
+        <input type="text" name="edit_desc" value="{{ assignment['description'] }}">
+
+      </li>
+
+      <li>
+
+        <label for="edit_points">Points</label>
+
+          <input type="number" name="edit_points" value="{{ assignment['points'] }}">
+
+      </li>
+
+      <li>
+
+        <label for="edit_date">Due Date</label>
+
+        {{ assignment['due_time'] }}
+
+          <input type="datetime-local" name="edit_date">
+
+      </li>
+
+    </ul>
+
+    <input type="submit" name="assignmentEditSumbit" value="Save">
+
+  </form>
+
+
+</section>
+
+{% endblock %}

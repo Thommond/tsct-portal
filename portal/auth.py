@@ -1,6 +1,7 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for, abort
 )
+
 import functools
 from . import db
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -23,7 +24,7 @@ def login():
                 cur.execute('SELECT * FROM users WHERE email = %s', (email,))
                 user = cur.fetchone()
 
-                
+
 
         error = None
 
@@ -95,8 +96,18 @@ def teacher_required(view):
     @functools.wraps(view)
     def wrapped(**kwargs):
         if g.user['role'] != 'teacher':
-            return redirect(url_for('index'))
+            abort(403)
 
         return view(**kwargs)
 
+    return wrapped
+
+def student_required(view):
+    """Checks if the logged in user is a student"""
+    @functools.wraps(view)
+    def wrapped(**kwargs):
+        if g.user['role'] != 'student':
+            return redirect(url_for('index'))
+
+        return view(**kwargs)
     return wrapped

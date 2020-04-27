@@ -16,10 +16,17 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
   font-family: 'Crimson Text', serif;
   font-weight: 400;
-  margin: 1rem auto;
+  margin: 2rem auto;
   text-align: center;
+  padding: 10px;
 }
 
+
+article.home_page h2 {
+   background-color:#8B1E41;
+   margin: 2rem auto;
+   text-align: center;
+}
 
 /**
  * Layout
@@ -135,6 +142,7 @@ section {
 
 section.teacher_courses h3,
 section.courseSession h3,
+section.assignments h3, h4,
 section.courseSession h4 {
   background-color: #8B1E41;
   font-size: 28px;
@@ -142,6 +150,7 @@ section.courseSession h4 {
 }
 
 section.teacher_courses li,
+section.assignments li,
 section.courseSession li {
   align-items: center;
   border: 1px solid #8B1E41;
@@ -151,6 +160,7 @@ section.courseSession li {
 }
 
 section.teacher_courses h4 ,
+section.assignments li h4,
 section.courseSession li h4 {
   background-color: white;
   color: #8B1E41;
@@ -160,6 +170,43 @@ section.courseSession li h4 {
 
 div.links {
   margin-bottom: 1rem;
+}
+
+
+span.underline {
+  text-decoration: underline;
+}
+
+header.submissions {
+  margin-bottom: 0;
+}
+
+ul.submissions {
+  border: 1px solid #8B1E41;
+  margin-bottom: 1rem;
+}
+
+ul.submissions li {
+  align-items: center;
+  border: 1px solid #8B1E41;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 1rem;
+}
+
+ul.submissions li:nth-child(2n) {
+  background-color: lightgrey;
+}
+
+table, th, td {
+  border: 2px solid #8B1E41;
+}
+
+th {
+  background: #8B1E41;
+  color: white;
+
 }
 
 
@@ -188,6 +235,7 @@ div.links {
   }
 
   section.teacher_courses li,
+  section.assignments li,
   section.courseSession li {
     flex-direction: row;
   }
@@ -195,7 +243,33 @@ div.links {
   div.links {
     margin: 0;
   }
+
+  article.home_page h2 {
+     background-color:#8B1E41;
+     margin: 2rem auto;
+     text-align: justify;
+  }
+
+
 }
+
+
+
+/**
+*Error Pages
+*/
+
+div.error_pages {
+  display: flex;
+  flex-direction: column;
+  font-size: 15pt;
+  background: #8B1E41;
+}
+
+div.error_pages a:hover {
+  color:white;
+}
+
 
 
 /**
@@ -211,20 +285,51 @@ form {
   width: 265px;
 }
 
-input {
+input, textarea {
   margin-top: 1rem;
   width: 100%;
 }
 
-form.session label {
+
+form.session label, form.assign label {
   border-bottom: 2px solid white;
-  display: block;
-  margin: 1rem 0;
+
 }
 
-form.session > ul > li {
+label {
+
+  display: block;
+  margin-top: .5rem;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+form.session label,
+form.editFeature label {
+  border-bottom: 2px solid white;
+  margin: 1rem 0 0 0;
+}
+
+form.session > ul > li, form.assign > ul > li {
   flex-direction: column;
 }
+
+label.grade div {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem auto 0 0;
+  text-decoration: none;
+  width: 95px;
+}
+
+label.grade input {
+  margin: 0;
+}
+
 
 @media (min-width: 760px) {
   form {
@@ -250,6 +355,30 @@ p.flash {
 
 @media (min-width: 760px) {
   p.flash {
+    width: 35vw;
+  }
+}
+
+
+/**
+* Success Messages
+*/
+
+p.success {
+  align-items: center;
+  border: 1px solid black;
+  box-shadow: 2px 2px 5px black;
+  color: green;
+  display: flex;
+  font-weight: bold;
+  height: 3rem;
+  justify-content: center;
+  margin: 2rem auto 0;
+  width: 265px;
+}
+
+@media (min-width: 760px) {
+  p.success {
     width: 35vw;
   }
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block head %}
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Crimson+Text|Lato:400,400i,700" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}" type="text/css" />
+    {% endblock %}
+  </head>
+  <body>
+    <header>
+      <h1>{{ self.title() }}</h1>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+      <h2>Thaddeus Stevens College of Technology</h2>
+      <address>
+        <p>750 E King St</p>
+        <p>Lancaster, PA 17602</p>
+        <p><a href="tel:1-717-299-7701">717.299.7701</a></p>
+      </address>
+    </footer>
+
+  </body>
+</html>

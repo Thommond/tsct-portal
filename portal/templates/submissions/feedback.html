@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}TSCT Portal - Enter Grade{% endblock %}
+
+{% block content %}
+
+<header>
+  <h2>{{ assignment['assign_name'] }} - {{ student }}'s Submission</h2>
+  <a class="back" href="{{ url_for('submissions.submission_list', course_id = session['course_id'], session_id = session['id'], assignment_id = assignment['id'], submission_id = submission['id']) }}">Back</a>
+</header>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <p class="{{ category }}">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
+<form class="submit_grade" method="post">
+
+  <label class="grade"><span class="underline">Enter Grade:</span>
+    <div><input type="number" name="grade" value="{{ submission['grade'] }}">/{{ assignment['points'] }}</div>
+  </label>
+
+  <label><span class="underline">Enter feedback (Optional):</span>
+    <textarea name="feedback" rows="8" cols="80">{% if submission['feedback'] %}{{ submission['feedback'] }}{% endif %}</textarea>
+  </label>
+
+  <input type="submit" value="Save"/>
+</form>
+
+
+{% endblock %}

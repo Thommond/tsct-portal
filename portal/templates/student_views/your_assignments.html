@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Your Assignments{% endblock %}
+
+{% block content %}
+<header>
+  <h2>Your assignments for {{ session['session_name'] }}</h2>
+  <a class="back" href="{{ url_for('student_views.view_schedule') }}">Back</a>
+</header>
+
+<section class='courseSession'>
+
+  <h3>Assignments</h3>
+
+    <ul>
+
+      {% for assignment in assignments %}
+        {% if assignment['sessions_id'] == session['id'] %}
+
+        <li>
+
+          <h4>{{ assignment['assign_name'] }}</h4>
+
+          <div class="links">
+            <a href="{{ url_for('student_views.assign_view', assign_id=assignment['id'], session_id=session['id'], course_id=session['course_id']) }}">Details</a>
+          </div>
+
+        </li>
+
+        {% endif %}
+      {% endfor %}
+
+    </ul>
+
+</section>
+
+{% endblock %}

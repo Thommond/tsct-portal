@@ -1,10 +1,12 @@
 {% extends 'layouts/base.html' %}
 
+{% block title %}TSCT Portal - Edit Course{% endblock %}
+
 {% block content %}
 
 
 <header>
-  <a class="back" href="{{ url_for('course_editor.course_manage')}}">Back</a>
+  <a class="back" href="{{ url_for('courses.course_manage')}}">Back</a>
 </header>
 
 
@@ -19,7 +21,7 @@
   <!--Form for the edit course page
 which has three inputs of data-->
 
-  <form class="editFeature" action="{{ url_for( 'course_editor.course_edit', id=course['course_num'] ) }}" method="post">
+  <form class="editFeature" action="{{ url_for( 'courses.course_edit', course_id=course['course_num'] ) }}" method="post">
 
     <p>The courses current information is displayed
       please fill out all the fields and save changes.</p>
@@ -29,11 +31,8 @@ which has three inputs of data-->
       <li>
 
         <label for="editTitle">Course Title</label>
-        <!--Bold in styles-->
 
-        {{ course['course_title'] }}
-
-        <input type="text" name="editTitle">
+        <input type="text" name="editTitle" value="{{ course['course_title'] }}">
 
       </li>
 
@@ -42,9 +41,7 @@ which has three inputs of data-->
 
         <label for="editDesc">Course Description</label>
 
-        {{ course['description'] }}
-
-        <input type="text" name="editDesc">
+        <input type="text" name="editDesc" value="{{ course['description'] }}">
 
       </li>
 
@@ -53,9 +50,7 @@ which has three inputs of data-->
 
         <label for="editCredit">Course Credits</label>
 
-        {{ course['credits'] }}
-
-        <input type="text" name="editCredit">
+        <input type="text" name="editCredit" value="{{ course['credits'] }}">
 
       </li>
 

@@ -1,0 +1,46 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Schedule{% endblock %}
+
+{% block content %}
+<header>
+
+  <h2>Schedule for {{ g.user['name'] }}</h2>
+
+  <a href="{{ url_for('index') }}"  class='back'>Back</a>
+
+</header>
+
+  <table class="schedule">
+
+    <tr>
+
+      <th>Title</th>
+      <th>Description</th>
+      <th>Time</th>
+      <th>Location</th>
+      <th>Room Number</th>
+      <th>Teacher Name</th>
+
+    </tr>
+
+  {% for info in infos %}
+    {% if g.user['id'] == info['user_id'] %}
+
+      <tr>
+
+        <td><a href="{{ url_for('student_views.session_assignments', session_id=info['id'], course_id=info['course_id']) }}">{{ info['session_name'] }}</a></td>
+        <td>{{ info['description'] }}</td>
+        <td>{{ info['times'] }}</td>
+        <td>{{ info['location'] }}</td>
+        <td>{{ info['room_number'] }}</td>
+        <td>{{ info['name'] }}</td>
+
+      </tr>
+
+    {% endif %}
+  {% endfor %}
+
+  </table>
+
+{% endblock %}

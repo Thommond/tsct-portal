@@ -104,15 +104,6 @@ def insert_users():
                        (ID, NAME, MAJOR_ID, EMAIL, generate_password_hash(PASSWORD), ROLE,)
                        )
 
-            with open('./portal/data/courses.csv', 'r') as f:
-                reader = csv.reader(f)
-                next(reader)
-
-                for row in reader:
-                    cur.execute(
-                        "INSERT INTO courses VALUES (%s, %s, %s, %s, %s, %s)",
-                        row
-                    )
 
                 # note: I have to create the "majors" database before "users" because
                 # users contains a reference to the majors database

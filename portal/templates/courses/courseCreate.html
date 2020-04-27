@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 
+{% block title %}TSCT Portal - Create Course{% endblock %}
 
 {% block content%}
 
@@ -7,7 +8,7 @@
 
   <h2>Create a New Course</h2>
 
-  <a class="back" href="{{ url_for('course_editor.course_manage')}}">Back</a>
+  <a class="back" href="{{ url_for('courses.course_manage')}}">Back</a>
 
 </header>
 
@@ -18,7 +19,12 @@
 <section class='courseCreation'>
 
   <!--Input for each field to create a course-->
-  <form class="courseCreate" action="{{ url_for('course_editor.course_create') }}" method="post">
+  <form class="courseCreate" action="{{ url_for('courses.course_create') }}" method="post">
+
+    <label for="courseNumber">Course Number</label>
+
+    <input type="number" name="courseNumber">
+
 
 
     <label for="courseTitle">Course Title</label>

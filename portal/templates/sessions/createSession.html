@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}TSCT Portal - Create Session{% endblock %}
+
+{% block content %}
+<header>
+
+  <!--The title of each session-->
+  <h2>Create a new Session for {{ course['course_title'] }}</h2>
+
+  <a class="back" href="{{ url_for('sessions.session_manage', course_id=course['course_num'] )}}">Back</a>
+
+</header>
+
+
+{% for message in get_flashed_messages() %}
+  <p class="flash">{{ message }}</p>
+{% endfor %}
+
+<section class='courseSession'>
+  <!--Start section courseSession-->
+
+
+  <!--Creates the session via the form info then updates-->
+  <form class="" action="{{ url_for('sessions.session_create', course_id=course['course_num']) }}" method="post">
+
+
+<label for="sessionTitle">Session Title</label>
+<input type="text" name="sessionTitle" >
+
+
+<label for="sessionTimes">Session Times</label>
+<input type="text" name="sessionTimes" >
+
+
+<label for="roomNumber">Room Number</label>
+<input type="text" name="roomNumber" >
+
+
+<label for="locations">Locations</label>
+<input type="text" name="locations">
+
+
+    <input type="submit" name="sessionSubmit" value="Save">
+
+  </form>
+
+
+</section>
+<!--End section courseSession-->
+{% endblock %}
