@@ -125,6 +125,13 @@ def assign_edit(course_id, assign_id, sessions_id):
         points = request.form['edit_points']
         description = request.form['edit_desc']
         due_date = request.form['edit_date']
+
+        if request.form['edit_type'] == 'upload':
+            type = 'upload'
+        else:
+            # Anything other than upload will default to standard
+            type = 'standard'
+
         error = None
 
         try:

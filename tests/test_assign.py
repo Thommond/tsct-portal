@@ -124,7 +124,8 @@ def test_assign_edit(client):
     assert b'Points' in response.data
     #editing the page with request
     response_2 = client.post('/course/180/session/2/assignment/Edit/1/', data={'edit_name': 'first portal creation',
-     'edit_desc': 'first test', 'edit_points': 90, 'edit_date': '2020-06-22T19:10'},follow_redirects=True)
+     'edit_desc': 'first test', 'edit_points': 90, 'edit_date': '2020-06-22T19:10',
+     'edit_type': 'standard'}, follow_redirects=True)
     assert b'Assignments for CSET-180-A' in response_2.data
     assert b'first portal creation' in response_2.data
     #logout
@@ -146,7 +147,9 @@ def test_edit_errors(client, name, description, points, edit_date, error):
     assert b'Logged in' in rv.data
 
     response = client.post('/course/180/session/2/assignment/Edit/1/', data={'edit_name': name,
-     'edit_desc': description, 'edit_points': points, 'edit_date': edit_date },follow_redirects = True)
+     'edit_desc': description, 'edit_points': points, 'edit_date': edit_date,
+     'edit_type': 'standard'}, follow_redirects = True)
+
     assert error in response.data
 
     rv = logout(client)
