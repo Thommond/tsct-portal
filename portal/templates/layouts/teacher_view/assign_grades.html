@@ -6,10 +6,12 @@
 
 <header>
 
-  <h2>Grades for {{ grades[0]['assign_name'] }}</h2>
+  <h2>Grades for {{ info['assign_name'] }}</h2>
   <a href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Back</a>
 
 </header>
+
+<p>{{ info['description'] }}</p>
 
 <table>
   <tr>

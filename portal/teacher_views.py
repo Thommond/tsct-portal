@@ -27,14 +27,20 @@ def assign_view(course_id, sessions_id, assign_id):
         with con.cursor() as cur:
             # I need student name and grade (points, for now)
             cur.execute("""
-                SELECT assignments.points, assignments.assign_name, users.name
+                SELECT assignments.points, users.name
                 FROM assignments, users
                 WHERE users.role='student' AND assignments.id=%s""",
                 (assign_id,)
                 )
             grades = cur.fetchall()
-            print(grades)
-    return render_template('layouts/teacher_view/assign_grades.html', grades=grades, session=session)
+            cur.execute("""
+                SELECT assign_name, description
+                FROM assignments
+                WHERE id=%s""",
+                (assign_id,)
+                )
+            info = cur.fetchone()
+    return render_template('layouts/teacher_view/assign_grades.html', grades=grades, info=info, session=session)
 
 def get_assignment(assign_id):
     """Gets the assignment from the database"""
