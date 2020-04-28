@@ -16,35 +16,33 @@
   <!--Start of teacher edit section-->
   <h3>Courses</h3>
 
-  <ul>
+  <table class='courses'>
 
   {% for course in courses %}
 
     {% if g.user['id'] == course['teacher_id'] %}
 
 
-        <li>
+        <tr class='course'>
 
-          <h4>{{ course['course_title'] }}</h4>
+          <td><h4>{{ course['course_title'] }}</h4></td>
           <!--Name of each course from database-->
 
-          <div class="links">
+            <td><a href="{{ url_for('courses.course_edit', course_id=course['course_num']) }}">Edit</a></td>
 
-            <a href="{{ url_for('courses.course_edit', course_id=course['course_num']) }}">Edit</a>
+            <td><a href="{{ url_for('sessions.session_manage', course_id=course['course_num'])}}">Sessions</a></td>
 
-            <a href="{{ url_for('sessions.session_manage', course_id=course['course_num'])}}">Sessions</a>
-          </div>
-        </li>
+        </tr>
 
       {% endif %}
 
     {% endfor %}
 
-  </ul>
+  </table>
 
-  <h3>Click the + below to create a new course</h3>
+  <h3>Click the link below to create a new course</h3>
 
-  <a href="{{ url_for('courses.course_create')}}" name="createButton">+</a>
+  <a href="{{ url_for('courses.course_create')}}" name="createButton">Add Course</a>
 
 </section><!-- end of teacher edit section-->
 {% endblock %}

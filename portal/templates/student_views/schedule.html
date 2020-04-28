@@ -26,7 +26,6 @@
     </tr>
 
   {% for info in infos %}
-    {% if g.user['id'] == info['user_id'] %}
 
       <tr>
 
@@ -40,7 +39,6 @@
 
       </tr>
 
-    {% endif %}
   {% endfor %}
 
   </table>

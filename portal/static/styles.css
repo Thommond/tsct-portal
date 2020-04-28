@@ -168,6 +168,10 @@ section.courseSession li h4 {
   margin: 1rem;
 }
 
+section.teacher_courses {
+  width: 40%;
+}
+
 div.links {
   margin-bottom: 1rem;
 }
@@ -206,7 +210,32 @@ table, th, td {
 th {
   background: #8B1E41;
   color: white;
+}
 
+
+tr.course h4 {
+  background-color: inherit;
+  margin: 2px;
+}
+
+tbody tr:hover,
+tbody tr:hover.course:nth-child(2n){
+  box-shadow: inset 0px 0px 18px #656465;
+}
+
+tr.course:nth-child(2n) {
+  background-color: #c5c5c5;
+}
+
+
+th, td {
+  padding: 0;
+  margin: 0;
+}
+
+td:nth-child(2n),
+td:nth-child(3n)  {
+  width: 50px;
 }
 
 
@@ -240,6 +269,10 @@ th {
     flex-direction: row;
   }
 
+  section.teacher_courses {
+    width: 75%;
+  }
+
   div.links {
     margin: 0;
   }
@@ -253,7 +286,12 @@ th {
 
 }
 
+@media (min-width: 1100px) {
 
+  section.teacher_courses {
+    width: 40%;
+  }
+}
 
 /**
 *Error Pages

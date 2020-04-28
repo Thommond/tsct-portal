@@ -78,8 +78,8 @@ def test_show_grades(client):
         client.post('/login', data={'email': 'student@stevenscollege.edu', 'password': 'asdfgh'})
 
         response = client.get('/course/180/session/2/grades')
-        print(response.data)
-        assert b'24' in response.data
+
+        assert b'24/25' in response.data
         assert b'good' in response.data
 
 def test_gradeless(client):
@@ -88,9 +88,12 @@ def test_gradeless(client):
         client.post('login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
 
         response = client.get('/course/180/session/2/grades')
-
         assert b'Logged in' in response.data
-        assert b'0' in response.data
+        assert b'0/25' in response.data
+
+        response = client.get('/course/216/session/1/grades')
+        assert b'Logged in' in response.data
+        assert b'0/30' in response.data
 
 @pytest.mark.parametrize(('course_id', 'error'), (
     (111, 403),

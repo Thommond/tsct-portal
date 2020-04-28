@@ -70,7 +70,7 @@ def test_assign_manage(client):
      #test data of the page
     response = client.get('/course/180/session/2/assignments/')
     assert b'Assignments for CSET-180-A' in response.data
-    assert b'Click the + below to create a new assignment' in response.data
+    assert b'Click the link below to create a new assignment' in response.data
      #logout
     rv = logout(client)
     assert b'TSCT Portal Login' in rv.data
