@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}TSCT Portal - Grades for assignment{% endblock %}
+
+{% block content%}
+
+<header>
+
+  <h2>Grades for {{ grades[0]['assign_name'] }}</h2>
+  <a href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Back</a>
+
+</header>
+
+<table>
+  <tr>
+    <th>Student Name</th>
+    <th>Points</th>
+  </tr>
+  {% for grade in grades %}
+    <tr>
+      <td>{{ grade['name'] }}</td>
+      <td>{{ grade['points'] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
