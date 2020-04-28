@@ -136,7 +136,7 @@ def test_assign_edit(client):
 @pytest.mark.parametrize(('name', 'description', 'points', 'edit_date', 'error'),(
     ('testing exam', 'enter discription', '', '2020-06-22T19:10', b'Points are numbers only, check your values.'),
     ('', 'enter description', 90, '2020-06-22T19:10', b'Name is required.'),
-    ('testing exam again', 'description', 10,"", b'Due Date only allows time data, check your values. Please format the time as such using military time. Year-Month-Day Hour:Minute ex. 2020-06-22 19:10')
+    ('testing exam again', 'description', 10,"", b'Please format date &amp; time as')
     ))
 
 def test_edit_errors(client, name, description, points, edit_date, error):
@@ -149,7 +149,7 @@ def test_edit_errors(client, name, description, points, edit_date, error):
     response = client.post('/course/180/session/2/assignment/Edit/1/', data={'edit_name': name,
      'edit_desc': description, 'edit_points': points, 'edit_date': edit_date,
      'edit_type': 'standard'}, follow_redirects = True)
-
+    print(response.data)
     assert error in response.data
 
     rv = logout(client)

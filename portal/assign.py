@@ -141,7 +141,7 @@ def assign_edit(course_id, assign_id, sessions_id):
         try:
             datetime.datetime.strptime(due_date, '%Y-%m-%dT%H:%M')
         except ValueError:
-            error = 'Due Date only allows time data, check your values. Please format the time as such using military time. Year-Month-Day Hour:Minute ex. 2020-06-22 19:10'
+            error = 'Please format date & time as "Year-Month-Day Hour:Minute" (ex. 2020-06-22 19:10)'
 
         with db.get_db() as con:
             with con.cursor() as cur:

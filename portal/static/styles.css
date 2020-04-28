@@ -368,6 +368,7 @@ p.flash {
   box-shadow: 2px 2px 5px black;
   color: red;
   display: flex;
+  font-size: 16px;
   font-weight: bold;
   height: 3rem;
   justify-content: center;
