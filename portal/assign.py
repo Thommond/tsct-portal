@@ -30,6 +30,13 @@ def assign_create(sessions_id, course_id):
         points = request.form['points']
         description = request.form['description']
         due_date = request.form['due_date']
+
+        if request.form['type'] == 'upload':
+            type = 'upload'
+        else:
+            # Anything other than upload will default to standard
+            type = 'standard'
+
         error = None
 
         try:
@@ -50,10 +57,9 @@ def assign_create(sessions_id, course_id):
 
                 if error is None:
                     now = datetime.datetime.utcnow()
-                    cur.execute("""INSERT INTO assignments (sessions_id, assign_name, description, points, due_time)
-                        VALUES (%s, %s, %s, %s, %s)
-                    """,
-                    (sessions_id, name, description, points, due_date, )
+                    cur.execute("""INSERT INTO assignments (sessions_id, assign_name, description, points, due_time, type)
+                        VALUES (%s, %s, %s, %s, %s, %s)""",
+                        (sessions_id, name, description, points, due_date, type,)
                     )
                     con.commit()
 
@@ -160,7 +166,7 @@ def get_assignment(assign_id):
     with db.get_db() as con:
         with con.cursor() as cur:
             cur.execute(
-                'SELECT id, assign_name, description, points, sessions_id, due_time'
+                'SELECT *'
                 ' FROM assignments WHERE id = %s',
                 (assign_id, )
             )
