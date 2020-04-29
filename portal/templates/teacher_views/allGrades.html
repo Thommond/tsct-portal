@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+{% block title %}All Grades{% endblock %}
+
+{% block content %}
+
+<header>
+  <h2>Total Grades for Students in {{ session['session_name'] }}</h2>
+
+  <a class='back' href="{{ url_for('sessions.session_manage', course_id=course['course_num'] )}}">Back</a>
+</header>
+
+<h3>Grades</h3>
+
+<div id='style_tables'>
+<table id='student'>
+
+  <tr>
+    <th>Student</th>
+    <th>Grade</th>
+  </tr>
+
+  {% for value in letter_grade %}
+  <tr>
+    <td>{{ value[1] }}</td>
+    <td>{{ value[0] }}</td>
+  </tr>
+  {% endfor %}
+
+</table>
+</div>
+ {% endblock %}
