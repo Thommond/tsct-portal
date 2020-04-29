@@ -127,11 +127,22 @@ a {
 a:hover {
   text-decoration: underline;
   color: #8B1E41;
-
 }
 
 a.back:hover {
   color: white;
+}
+
+a.submit_assignment {
+  border: 2px solid #8B1E41;
+  border-radius: 2px;
+  box-shadow: 2px 2px 2px black;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+a.submit_assignment:hover {
+  box-shadow: inset 1px 1px 2px black;
 }
 
 section {
@@ -197,6 +208,10 @@ ul.submissions li {
 
 ul.submissions li:nth-child(2n) {
   background-color: lightgrey;
+}
+
+table {
+  margin-bottom: 1rem;
 }
 
 table, th, td {
@@ -291,9 +306,12 @@ input, textarea {
 }
 
 
-form.session label, form.assign label {
+form.session label {
   border-bottom: 2px solid white;
+}
 
+form.assign label {
+  text-decoration: underline;
 }
 
 label {
@@ -330,6 +348,10 @@ label.grade input {
   margin: 0;
 }
 
+select {
+  display: block;
+  margin-top: .5rem;
+}
 
 @media (min-width: 760px) {
   form {
@@ -346,6 +368,7 @@ p.flash {
   box-shadow: 2px 2px 5px black;
   color: red;
   display: flex;
+  font-size: 16px;
   font-weight: bold;
   height: 3rem;
   justify-content: center;
