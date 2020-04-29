@@ -6,22 +6,22 @@
 
 <header>
 
-  <h2>Grades for {{ info['assign_name'] }}</h2>
-  <a href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Back</a>
+  <h2>Grades for {{ assignments['assign_name'] }}</h2>
+  <a class="back" href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Back</a>
 
 </header>
 
-<p>{{ info['description'] }}</p>
+<p>{{ assignments['description'] }}</p>
 
 <table>
   <tr>
     <th>Student Name</th>
     <th>Grade</th>
   </tr>
-  {% for grade in grades %}
+  {% for student in students %}
     <tr>
-      <td>{{ grade['name'] }}</td>
-      <td>{{ grade['points'] }}</td>
+      <td>{{ student['name'] }}</td>
+      <td>{{ student_submissions['grade'] }}/{{ assignments['points'] }}</td>
     </tr>
   {% endfor %}
 </table>

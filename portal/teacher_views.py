@@ -6,36 +6,54 @@ from portal import sessions, assign, courses, submissions
 bp = Blueprint("teacher_views", __name__)
 
 # Page where teachers can view students' grades for an assignment
-@bp.route("/course/<int:course_id>/session/<int:sessions_id>/assignments/grades/<int:assign_id>/")
+@bp.route("/course/<int:course_id>/session/<int:sessions_id>/assignments/<int:assign_id>/grades")
 @login_required
 @teacher_required
 
-def assign_view(course_id, sessions_id, assign_id):
+def assign_grade(course_id, sessions_id, assign_id):
     course = courses.get_course(course_id)
     session = sessions.get_session(sessions_id)
+    students = get_students(sessions_id)
     assignment = get_assignment(assign_id)
+
+    if g.user['id'] != course['teacher_id']:
+        abort(403)
+
+    if course['course_num'] != session['course_id']:
+        abort(403)
 
     if session['id'] != assignment['sessions_id']:
         abort(403)
 
-    with db.get_db() as con:
-        with con.cursor() as cur:
+    for student in students:
+        # default of zero
+        print(student)
+        points = 0
+        grades = 0
+
+        with db.get_db() as con:
+            with con.cursor() as cur:
+
+            # Getting each assignment data
+                cur.execute(
+                """SELECT assign_name, id, points, description
+                FROM assignments WHERE sessions_id = %s AND id = %s""",
+                (student['id'], assign_id,)
+                )
+                # all assignments per student
+                assignments = cur.fetchone()
+                print(assignments)
+
+                cur.execute("""
+                    SELECT grade, id, assignment_id, student_id
+                    FROM submissions
+                    WHERE student_id = %s AND assignment_id = %s""",
+                    (student['user_id'], assign_id,))
+                student_submissions = cur.fetchone()
+                print(student_submissions)
+
             # I need student name and grade (points, for now)
-            cur.execute("""
-                SELECT assignments.points, users.name
-                FROM assignments, users
-                WHERE users.role='student' AND assignments.id=%s""",
-                (assign_id,)
-                )
-            grades = cur.fetchall()
-            cur.execute("""
-                SELECT assign_name, description
-                FROM assignments
-                WHERE id=%s""",
-                (assign_id,)
-                )
-            info = cur.fetchone()
-    return render_template('layouts/teacher_view/assign_grades.html', grades=grades, info=info, session=session)
+    return render_template('layouts/teacher_view/assign_grades.html', students=students, session=session, assignments=assignments, student_submissions=student_submissions)
 
 def get_assignment(assign_id):
     """Gets the assignment from the database"""
