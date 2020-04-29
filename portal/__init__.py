@@ -18,19 +18,19 @@ def handle_exception(e):
 
 def forbidden(e):
     """Notifies the user that the previous action they attempted is not allowed."""
-    return render_template('layouts/errors/403.html'), 403
+    return render_template('errors/403.html'), 403
 
 def page_not_found(e):
     """Tells the user what they are looking for is not there."""
-    return render_template('layouts/errors/404.html'), 404
+    return render_template('errors/404.html'), 404
 
 def gone(e):
     """Notifies the user the resource they are looking for is no longer here"""
-    return render_template('layouts/errors/410.html'), 410
+    return render_template('errors/410.html'), 410
 
 def bad_request(e):
     """Notifies the user that the request they have attempted is not excepted"""
-    return render_template('layouts/errors/400.html'), 400
+    return render_template('errors/400.html'), 400
 ########################
 
 def create_app(test_config=None):
@@ -101,6 +101,10 @@ def create_app(test_config=None):
     # ---------------
     from . import roster
     app.register_blueprint(roster.bp)
+
+    #Submission Route
+    from . import submissions
+    app.register_blueprint(submissions.bp)
 
     # Student View Routes
     # -------------------

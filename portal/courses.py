@@ -19,7 +19,7 @@ def course_manage():
 
     cur.close()
 
-    return render_template("layouts/courses/courseMan.html", courses=courses)
+    return render_template("courses/courseMan.html", courses=courses)
 
 
 @bp.route("/courses/create", methods=('GET', 'POST'))  # Course Create
@@ -70,6 +70,33 @@ def course_create():
                     if check_major == None:
 
                         error = 'Major not found'
+
+
+        # Checks if the course number or name is taken
+        if not error:
+            with db.get_db() as con:
+                with con.cursor() as cur:
+
+                    cur.execute('SELECT * FROM courses WHERE course_title = %s', (course_title, ))
+
+                    existing_course_name = cur.fetchone()
+
+                    if existing_course_name != None:
+                        error = "Course Name already exists"
+
+
+                    cur.execute(
+                    "SELECT * FROM courses WHERE course_num = %s;", (course_number, ))
+
+                    existing_course_num = cur.fetchone()
+
+                    if existing_course_num != None:
+
+                        error = "Course Number already exists"
+
+
+
+
         if not course_number:
             error = 'Course number is required'
         if not course_title:
@@ -79,7 +106,9 @@ def course_create():
         if not course_major:
             error = 'Major is required'
 
+
         if error is None:
+
             with db.get_db() as con:
                 with con.cursor() as cur:
                     # Adds info to courses table
@@ -95,7 +124,7 @@ def course_create():
 
         flash(error)
 
-    return render_template('layouts/courses/courseCreate.html', all_majors=all_majors)
+    return render_template('courses/courseCreate.html', all_majors=all_majors)
 
 
 # Needs new template
@@ -146,7 +175,7 @@ def course_edit(course_id):
 
         flash(error)
 
-    return render_template("layouts/courses/courseEdit.html", course=course)
+    return render_template("courses/courseEdit.html", course=course)
 
 
 def get_course(course_id):

@@ -59,7 +59,7 @@ def session_edit(course_id, sessions_id):
         flash(error)
 
 
-    return render_template("layouts/sessions/editSession.html", course=course, session=session)
+    return render_template("sessions/editSession.html", course=course, session=session)
 
 
 @bp.route("/courses/<int:course_id>/sessions/create", methods=('GET','POST'))
@@ -108,7 +108,7 @@ def session_create(course_id):
 
                 flash(error)
 
-    return render_template("layouts/sessions/createSession.html", course=course)
+    return render_template("sessions/createSession.html", course=course)
 
 
 @bp.route("/courses/<int:course_id>/sessions", methods=('GET', 'POST'))
@@ -130,7 +130,7 @@ def session_manage(course_id):
 
     cur.close()
 
-    return render_template("layouts/sessions/sessionManage.html", course=course, sessions=sessions)
+    return render_template("sessions/sessionManage.html", course=course, sessions=sessions)
 
 def get_session(sessions_id):
     """Gets the session from the database"""

@@ -172,6 +172,33 @@ div.links {
   margin-bottom: 1rem;
 }
 
+
+span.underline {
+  text-decoration: underline;
+}
+
+header.submissions {
+  margin-bottom: 0;
+}
+
+ul.submissions {
+  border: 1px solid #8B1E41;
+  margin-bottom: 1rem;
+}
+
+ul.submissions li {
+  align-items: center;
+  border: 1px solid #8B1E41;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 1rem;
+}
+
+ul.submissions li:nth-child(2n) {
+  background-color: lightgrey;
+}
+
 table, th, td {
   border: 2px solid #8B1E41;
 }
@@ -179,6 +206,7 @@ table, th, td {
 th {
   background: #8B1E41;
   color: white;
+
 }
 
 
@@ -225,6 +253,8 @@ th {
 
 }
 
+
+
 /**
 *Error Pages
 */
@@ -255,7 +285,7 @@ form {
   width: 265px;
 }
 
-input {
+input, textarea {
   margin-top: 1rem;
   width: 100%;
 }
@@ -273,6 +303,7 @@ label {
 }
 
 textarea {
+  resize: none;
   width: 100%;
 }
 
@@ -282,13 +313,22 @@ form.editFeature label {
   margin: 1rem 0 0 0;
 }
 
-
-
-
 form.session > ul > li, form.assign > ul > li {
   flex-direction: column;
 }
 
+label.grade div {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem auto 0 0;
+  text-decoration: none;
+  width: 95px;
+}
+
+label.grade input {
+  margin: 0;
+}
 
 
 @media (min-width: 760px) {
@@ -315,6 +355,30 @@ p.flash {
 
 @media (min-width: 760px) {
   p.flash {
+    width: 35vw;
+  }
+}
+
+
+/**
+* Success Messages
+*/
+
+p.success {
+  align-items: center;
+  border: 1px solid black;
+  box-shadow: 2px 2px 5px black;
+  color: green;
+  display: flex;
+  font-weight: bold;
+  height: 3rem;
+  justify-content: center;
+  margin: 2rem auto 0;
+  width: 265px;
+}
+
+@media (min-width: 760px) {
+  p.success {
     width: 35vw;
   }
 }
