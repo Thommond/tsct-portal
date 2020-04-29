@@ -168,16 +168,26 @@ def assign_edit(course_id, assign_id, sessions_id):
 
     return render_template('assigns/assign_edit.html', session=session, assignment= assignment)
 
-def get_assignment(assign_id):
+def get_assignment(id, all=False):
     """Gets the assiment from the database"""
     with db.get_db() as con:
         with con.cursor() as cur:
-            cur.execute(
-                'SELECT *'
-                ' FROM assignments WHERE id = %s',
-                (assign_id, )
-            )
-            assign = cur.fetchone()
+
+
+            if all==False:
+                cur.execute(
+                    'SELECT id, assign_name, description, points, sessions_id, due_time'
+                    ' FROM assignments WHERE id = %s',
+                    (id, )
+                )
+                assign = cur.fetchone()
+            elif all==True:
+                cur.execute(
+                    'SELECT id, assign_name, description, points, sessions_id, due_time'
+                    ' FROM assignments WHERE sessions_id = %s',
+                    (id, )
+                )
+                assign = cur.fetchall()
 
             if assign is None:
                 abort(404)

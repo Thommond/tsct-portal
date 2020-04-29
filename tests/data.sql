@@ -22,8 +22,7 @@ VALUES (180, 'Software Project 2', 'Recreation of the portal', 3, 1, 1),
          3, 3, 3);
 
 INSERT INTO sessions (times, session_name, room_number, location, course_id)
-VALUES ('We meet every Tues-Thurs at 1:30 to 2:45', 'ENG-216-D',
-307, 'Main campus in Mellor', 216),
+VALUES ('We meet every Tues-Thurs at 1:30 to 2:45', 'ENG-216-D', 307, 'Main campus in Mellor', 216),
       ('We meet every day at Mon-Fri at 12:00-4:30 except on Wends which we start
         at 12:30', 'CSET-180-A', '103', 'GreenField Campus down the hall three doors then
         on your right.', 180 ),
@@ -33,7 +32,8 @@ VALUES ('We meet every Tues-Thurs at 1:30 to 2:45', 'ENG-216-D',
 
 INSERT INTO rosters (user_id, session_id)
 VALUES (5, 1),
-       (2, 1);
+       (2, 1),
+       (2, 2);
 
 
 INSERT INTO assignments (sessions_id, assign_name, description, points, due_time)
@@ -41,6 +41,6 @@ VALUES (2, 'exam1', 'first exam of course', 25, '2020-06-22 19:10'),
         (1, 'test1', 'first test of course', 30, '2020-07-24 10:05');
 
 
-INSERT INTO submissions (assignment_id, student_id)
-VALUES (2, 5),
-       (1, 2);
+INSERT INTO submissions (assignment_id, student_id, grade, feedback)
+VALUES (2, 5, NULL, NULL),
+       (1, 2, 24, 'good');

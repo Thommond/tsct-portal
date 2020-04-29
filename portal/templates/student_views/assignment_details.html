@@ -10,34 +10,33 @@
   <a class="back" href="{{ url_for('student_views.session_assignments', session_id=session['id'], course_id=session['course_id']) }}">Back</a>
 
 </header>
+<section class='details'>
+  <table class="schedule">
 
-<table class="schedule">
+    <tr>
 
-  <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Points</th>
+      <th>Due Date</th>
 
-    <th>Title</th>
-    <th>Description</th>
-    <th>Points</th>
-    <th>Due Date</th>
+    </tr>
 
-  </tr>
+    <tr>
 
-  <tr>
+      <td>{{ assignment['assign_name'] }}</td>
+      <td class='table_data'>{{ assignment['description'] }}</td>
+      <td>{{ assignment['points'] }}</td>
+      <td class='table_data'>{{ assignment['due_time'] }}</td>
 
-    <td>{{ assignment['assign_name'] }}</td>
-    <td>{{ assignment['description'] }}</td>
-    <td>{{ assignment['points'] }}</td>
-    <td>{{ assignment['due_time'] }}</td>
+    </tr>
 
-  </tr>
+    {% if assignment['type'] == 'upload' %}
 
-</table>
+      <a class="submit_assignment" href="#">Submit Assignment</a>
 
-{% if assignment['type'] == 'upload' %}
+    {% endif %}
 
-  <a class="submit_assignment" href="#">Submit Assignment</a>
-
-{% endif %}
-
-
+  </table>
+</section>
 {% endblock %}
