@@ -68,3 +68,30 @@ def test_submission_input_validation(client):
             data={ 'grade': 'A', 'feedback': 'good' })
 
         assert b'Grade needs to be a number' in response.data
+
+def test_submission_form(client):
+    """Tests the page that students use to submit assignments"""
+
+    with client:
+        client.post('/login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
+        # Check that the submission form exists
+        response = client.get('/course/216/session/1/assignment/2/submit')
+        assert response.status_code == 200
+
+        assert b'Upload File' in response.data
+        assert b'Submit Assignment' in response.data
+
+        # Submitting with no file selected should return an error
+        response = client.post('/course/216/session/1/assignment/2/submit')
+        assert b'File not selected' in response.data
+
+def test_file_upload(client):
+
+    response = client.post('/upload')
+
+    assert response.status_code == 302
+
+    # Check that an uploaded file appears in the file system
+
+    # Check that a file uploaded with the same same doesn't override
+    # the original file

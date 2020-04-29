@@ -167,3 +167,31 @@ def grade_submission(course_id, session_id, assignment_id, submission_id):
             flash(success_message, 'success')
 
     return render_template('submissions/feedback.html', assignment=assignment, student=student['name'], session=session, submission=submission)
+
+
+@bp.route('/course/<int:course_id>/session/<int:session_id>/assignment/<int:assign_id>/submit')
+def submission_form(course_id, session_id, assign_id):
+
+    with db.get_db() as con:
+        with con.cursor() as cur:
+
+            cur.execute('SELECT * FROM courses WHERE course_num = %s',
+                (course_id,))
+
+            course = cur.fetchone()
+
+            cur.execute('SELECT * FROM sessions WHERE id = %s', (session_id,))
+
+            session = cur.fetchone()
+
+            cur.execute('SELECT * FROM assignments WHERE id = %s', (assign_id,))
+
+            assignment = cur.fetchone()
+
+    return render_template('submissions/submit_form.html', course=course, session=session, assignment=assignment)
+
+
+@bp.route('/upload', methods=('POST',))
+def upload():
+
+    pass

@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}TSCT Portal - Submit Assignment{% endblock %}
+
+{% block content %}
+
+<header>
+  <a class="back" href="/course/course['course_num']/session/session['id']/assignment_details/assignment['id']">Back</a>
+</header>
+
+<form class="submit" action="/upload" method="post">
+
+  <label for="file">Upload File
+
+    <input type="file" name="file">
+
+  </label>
+
+  <input type="submit" name="submit" value="Submit Assignment">
+</form>
+
+{% endblock %}
