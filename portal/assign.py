@@ -30,6 +30,13 @@ def assign_create(sessions_id, course_id):
         points = request.form['points']
         description = request.form['description']
         due_date = request.form['due_date']
+
+        if request.form['type'] == 'upload':
+            type = 'upload'
+        else:
+            # Anything other than upload will default to standard
+            type = 'standard'
+
         error = None
 
         try:
@@ -50,10 +57,9 @@ def assign_create(sessions_id, course_id):
 
                 if error is None:
                     now = datetime.datetime.utcnow()
-                    cur.execute("""INSERT INTO assignments (sessions_id, assign_name, description, points, due_time)
-                        VALUES (%s, %s, %s, %s, %s)
-                    """,
-                    (sessions_id, name, description, points, due_date, )
+                    cur.execute("""INSERT INTO assignments (sessions_id, assign_name, description, points, due_time, type)
+                        VALUES (%s, %s, %s, %s, %s, %s)""",
+                        (sessions_id, name, description, points, due_date, type,)
                     )
                     con.commit()
 
@@ -119,6 +125,13 @@ def assign_edit(course_id, assign_id, sessions_id):
         points = request.form['edit_points']
         description = request.form['edit_desc']
         due_date = request.form['edit_date']
+
+        if request.form['edit_type'] == 'upload':
+            type = 'upload'
+        else:
+            # Anything other than upload will default to standard
+            type = 'standard'
+
         error = None
 
         try:
@@ -128,7 +141,7 @@ def assign_edit(course_id, assign_id, sessions_id):
         try:
             datetime.datetime.strptime(due_date, '%Y-%m-%dT%H:%M')
         except ValueError:
-            error = 'Due Date only allows time data, check your values. Please format the time as such using military time. Year-Month-Day Hour:Minute ex. 2020-06-22 19:10'
+            error = 'Please format date & time as "Year-Month-Day Hour:Minute" (ex. 2020-06-22 19:10)'
 
         with db.get_db() as con:
             with con.cursor() as cur:
@@ -160,7 +173,7 @@ def get_assignment(assign_id):
     with db.get_db() as con:
         with con.cursor() as cur:
             cur.execute(
-                'SELECT id, assign_name, description, points, sessions_id, due_time'
+                'SELECT *'
                 ' FROM assignments WHERE id = %s',
                 (assign_id, )
             )
