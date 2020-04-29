@@ -64,9 +64,9 @@
 
         <select name="edit_type">
 
-          <option value="standard">Standard</option>
+          <option value="standard" {% if assignment['type'] == 'standard' %}selected{% endif %}>Standard</option>
 
-          <option value="upload">Upload</option>
+          <option value="upload" {% if assignment['type'] == 'upload' %}selected{% endif %}>Upload</option>
 
         </select>
 
