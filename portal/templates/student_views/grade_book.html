@@ -10,28 +10,38 @@
   <a class="back" href="{{ url_for('student_views.view_schedule') }}">Back</a>
 
 </header>
+<section class='grades'>
+  <table class="courses">
 
-<table class="courses">
-  <tr>
-    <th>Assignment</th>
-    <th>Grade</th>
-    <th>Feedback</th>
-  <tr>
-  {% for submission in submissions %}
-  <tr>
-    <td>{{ submission['assign_name'] }}</td>
-    <td>{{ submission['grade'] }}/{{ submission['points'] }}</td>
-    <td>{% if submission['feedback'] %}
-      {{ submission['feedback'] }}
-    {% endif %}
-    {% if submission['feedback'] == None %}
-      <span>No Feedback</span>
-    {% endif %}
-    </td>
-  </tr>
+    <tr>
+      <th>Assignment</th>
+      <th>Grade</th>
+      <th>Feedback</th>
+    </tr>
 
-  {% endfor %}
+    {% for submission in submissions %}
 
-</table>
+    <tr>
+
+      <td>{{ submission['assign_name'] }}</td>
+      <td>{{ submission['grade'] }}/{{ submission['points'] }}</td>
+      <td class='feedback'>{% if submission['feedback'] %}
+
+        {{ submission['feedback'] }}
+
+        {% endif %}
+
+        {% if submission['feedback'] == None %}
+
+        <span>No Feedback</span>
+        {% endif %}
+
+      </td>
+    </tr>
+
+    {% endfor %}
+
+  </table>
+</section>
 
 {% endblock %}

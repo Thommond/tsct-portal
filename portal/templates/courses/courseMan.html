@@ -12,16 +12,21 @@
 </header>
 
 
-<section class='teacher_courses'>
+<section id='hover' class='teacher_courses'>
   <!--Start of teacher edit section-->
   <h3>Courses</h3>
 
   <table class='courses'>
 
+    <tr>
+      <th>Course Name</th>
+      <th>Edit Course</th>
+      <th>Session Page</th>
+    </tr>
+
   {% for course in courses %}
 
     {% if g.user['id'] == course['teacher_id'] %}
-
 
         <tr class='course'>
 
