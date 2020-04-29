@@ -22,4 +22,4 @@ def test_all_grades(client):
     response = client.get('/course/216/session/1/all_grades')
     # Making sure students grades are displaying
     assert b'bob phillp' in response.data
-    assert b'F' in response.data
+    assert b'<td>F</td>' in response.data

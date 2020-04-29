@@ -17,6 +17,7 @@ def all_grades(course_id, sessions_id):
     # Holds all total grades
     total_student_grades = []
 
+
     if g.user['id'] != course['teacher_id']:
         abort(403)
 
@@ -25,6 +26,7 @@ def all_grades(course_id, sessions_id):
 
     for student in students:
         # default of zero
+        print(student)
         points = 0
         grades = 0
 
@@ -33,31 +35,40 @@ def all_grades(course_id, sessions_id):
 
             # Getting each assignment data
                 cur.execute(
-                """SELECT assignments.assign_name, assignments.id, assignments.points, submissions.assignment_id, submissions.grade
-                FROM submissions JOIN assignments ON submissions.assignment_id = assignments.id
-                WHERE submissions.student_id = %s AND assignments.sessions_id = %s""",
-                (student['user_id'], student['id'], )
+                """SELECT assign_name, id, points
+                FROM assignments WHERE sessions_id = %s""",
+                (student['id'], )
                 )
                 # all assignments per student
                 assignments = cur.fetchall()
-
+                print(assignments)
                 for assignment in assignments:
 
-
-                    if assignment['points'] == None:
-                        # Displays message if grades don't exist for student
-                        total_student_grade = 'No grades Yet'
-
-                    elif assignment['points'] != None:
+                    if assignment['points'] != None:
                         points += assignment['points']
 
-                        if assignment['grade'] != None:
-                            grades += assignment['grade']
+
+                cur.execute(
+                """SELECT grade, assignment_id, student_id FROM Submissions
+                WHERE student_id = %s""",
+                (student['user_id'], )
+                )
+
+                student_submissions = cur.fetchall()
+
+                for submission in student_submissions:
 
 
-                    total_student_grade = submissions.letter_grade(grades, points)
-                            # adding each student total grade to the list
-                    total_student_grades.append(total_student_grade)
+                    if submission['grade'] != None:
+                        grades += submission['grade']
+
+
+                total_student_grade = submissions.letter_grade(grades, points)
+                # adding each student total grade to the list
+
+                grade_and_name = (total_student_grade, student['name'])
+
+                total_student_grades.append(grade_and_name)
 
 
     return render_template("teacher_views/allGrades.html", course=course, session=session, letter_grade=total_student_grades, students=students)
