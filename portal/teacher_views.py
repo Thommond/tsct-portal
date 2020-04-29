@@ -54,31 +54,18 @@ def all_grades(course_id, sessions_id):
                         if assignment['grade'] != None:
                             grades += assignment['grade']
 
-                    print(grades)
-                    print(points)
 
                     total_student_grade = submissions.letter_grade(grades, points)
                             # adding each student total grade to the list
                     total_student_grades.append(total_student_grade)
-                    print(total_student_grade)
-
-
-
-
-
-
-
-
-
-
-
 
 
     return render_template("teacher_views/allGrades.html", course=course, session=session, letter_grade=total_student_grades, students=students)
 
 
-def get_students(sessions_id):
 
+def get_students(sessions_id):
+    """Gets all the students in a session"""
     with db.get_db() as con:
         with con.cursor() as cur:
 
