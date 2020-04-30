@@ -24,6 +24,7 @@
       <th>Add Student</th>
       <th>Edit Session</th>
       <th>Assignment Page</th>
+      <th>Grade Page</th>
     </tr>
 
     {% for session in sessions %}
@@ -44,7 +45,7 @@
 
             <td><a href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Assignments</a></td>
 
-              <a href="{{ url_for('teacher_views.all_grades', course_id=session['course_id'], sessions_id=session['id'])}}">Student Grades</a>
+            <td><a href="{{ url_for('teacher_views.all_grades', course_id=session['course_id'], sessions_id=session['id'])}}">Student Grades</a></td>
 
           </div>
 
