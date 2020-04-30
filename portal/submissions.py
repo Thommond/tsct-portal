@@ -213,5 +213,21 @@ def upload_submission(course_id, session_id, assign_id):
     if not in_session:
         abort(403)
 
+    if request.method == 'POST':
+
+        error = None
+
+        if 'file' not in request.files:
+            error = 'File not selected'
+
+        else :
+            file = request.files['file']
+
+            if file.filename == '':
+                error = 'File not selected'
+
+
+        flash(error)
+
 
     return render_template('submissions/submit_form.html', course=course, session=session, assignment=assignment)

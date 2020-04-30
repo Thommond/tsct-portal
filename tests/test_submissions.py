@@ -1,4 +1,5 @@
 import pytest
+import io
 
 def test_submission_list(client):
     """Tests that adding a grade to a student's assignment submission works"""
@@ -82,7 +83,13 @@ def test_submission_form(client):
         assert b'Submit Assignment' in response.data
 
         # Submitting with no file selected should return an error
-        response = client.post('/course/216/session/1/assignment/2/submit')
+        response = client.post('/course/216/session/1/assignment/2/submit',
+            data={'file': ''})
+        assert b'File not selected' in response.data
+
+        # A file with no title should count as not selected as well
+        response = client.post('/course/216/session/1/assignment/2/submit',
+            data={'file': (io.BytesIO(b""), '')})
         assert b'File not selected' in response.data
 
 def test_file_upload(client):

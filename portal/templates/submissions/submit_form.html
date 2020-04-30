@@ -5,10 +5,15 @@
 {% block content %}
 
 <header>
+  <h2>Submit work for {{ assignment['assign_name'] }}</h2>
   <a class="back" href="/course/course['course_num']/session/session['id']/assignment_details/assignment['id']">Back</a>
 </header>
 
-<form class="submit" action="/upload" method="post">
+{% for message in get_flashed_messages() %}
+  <p class="flash">{{ message }}</p>
+{% endfor %}
+
+<form class="submit" method="post">
 
   <label for="file">Upload File
 
