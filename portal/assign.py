@@ -176,18 +176,20 @@ def get_assignment(id, all=False):
 
             if all==False:
                 cur.execute(
-                    'SELECT id, assign_name, description, points, sessions_id, due_time'
+                    'SELECT *'
                     ' FROM assignments WHERE id = %s',
                     (id, )
                 )
                 assign = cur.fetchone()
+                print(assign)
             elif all==True:
                 cur.execute(
-                    'SELECT id, assign_name, description, points, sessions_id, due_time'
+                    'SELECT *'
                     ' FROM assignments WHERE sessions_id = %s',
                     (id, )
                 )
                 assign = cur.fetchall()
+                print(assign)
 
             if assign is None:
                 abort(404)

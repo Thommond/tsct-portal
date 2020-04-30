@@ -31,12 +31,12 @@
 
     </tr>
 
-    {% if assignment['type'] == 'upload' %}
-
-      <a class="submit_assignment" href="#">Submit Assignment</a>
-
-    {% endif %}
-
   </table>
+
+  {% if assignment['type'] == 'upload' %}
+
+    <a class="submit_assignment" href="#">Submit Assignment</a>
+
+  {% endif %}
 </section>
 {% endblock %}

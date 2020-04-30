@@ -68,6 +68,7 @@ def session_assignments(session_id, course_id):
 def assign_view(assign_id, session_id, course_id):
     """Allows students to view a specific assignment's details for a specific course"""
     assignment = assign.get_assignment(assign_id)
+    print(assignment['type'])
     session = sessions.get_session(session_id)
     course = courses.get_course(course_id)
     if session['course_id'] != course['course_num']:
