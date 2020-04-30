@@ -111,6 +111,10 @@ def create_app(test_config=None):
     from . import student_views
     app.register_blueprint(student_views.bp)
 
+    # Teacher View Routes
+    #--------------------
+    from . import teacher_views
+    app.register_blueprint(teacher_views.bp)
 
     @app.route('/')
     @auth.login_required

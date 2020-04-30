@@ -24,7 +24,8 @@ def test_assign_create(client):
     #make post request to test functionality of test created
     #test redirection to assign manage
     response_2 = client.post('/course/180/session/2/assignment/create/', data={'name': 'portal creation',
-     'description': 'testing_description', 'points': 100, 'due_date': '2020-06-22T19:10'}, follow_redirects=True)
+     'description': 'testing_description', 'points': 100, 'due_date': '2020-06-22T19:10',
+     'type': 'standard'}, follow_redirects=True)
     #in assign manage data make sure assign manage is there
     assert b'Assignments for CSET-180-A' in response_2.data
     assert b'portal creation' in response_2.data
@@ -48,13 +49,44 @@ def test_create_errors(client, name, description, points, due_date, error):
 
 
     response = client.post('/course/180/session/2/assignment/create/', data={'name': name,
-     'description': description, 'points': points, 'due_date': due_date })
+     'description': description, 'points': points, 'due_date': due_date , 'type': 'standard'})
 
     assert error in response.data
 
     rv = logout(client)
     assert b'TSCT Portal Login' in rv.data
 
+
+@pytest.mark.parametrize(('type'), (
+    ('standard'),
+    ('sadf8ewfhc'),
+    ('upload')
+))
+def test_types(client, type):
+
+    with client:
+        # Log in as the teacher to create the assignment
+        login(client, 'teacher2@stevenscollege.edu', 'PASSWORD')
+
+        client.post('/course/216/session/1/assignment/create/', data={
+            'name': 'test',
+            'description': 'this is a test assignment',
+            'points': 100,
+            'due_date': '2020-05-29T12:00',
+            'type': type
+        })
+        logout(client)
+
+        # Log in as the student to check for a submit button
+        login(client, 'student2@stevenscollege.edu', '123456789')
+
+        response = client.get('/course/216/session/1/assignment_details/3')
+        # If the assignment is upload type, there should be a submit button
+        # on the page.  If not, then there shouldn't be
+        if type == 'upload':
+            assert b'Submit' in response.data
+        else:
+            assert b'Submit' not in response.data
 
 
 def test_assign_manage(client):
@@ -92,7 +124,8 @@ def test_assign_edit(client):
     assert b'Points' in response.data
     #editing the page with request
     response_2 = client.post('/course/180/session/2/assignment/Edit/1/', data={'edit_name': 'first portal creation',
-     'edit_desc': 'first test', 'edit_points': 90, 'edit_date': '2020-06-22T19:10'},follow_redirects=True)
+     'edit_desc': 'first test', 'edit_points': 90, 'edit_date': '2020-06-22T19:10',
+     'edit_type': 'upload'}, follow_redirects=True)
     assert b'Assignments for CSET-180-A' in response_2.data
     assert b'first portal creation' in response_2.data
     #logout
@@ -103,7 +136,7 @@ def test_assign_edit(client):
 @pytest.mark.parametrize(('name', 'description', 'points', 'edit_date', 'error'),(
     ('testing exam', 'enter discription', '', '2020-06-22T19:10', b'Points are numbers only, check your values.'),
     ('', 'enter description', 90, '2020-06-22T19:10', b'Name is required.'),
-    ('testing exam again', 'description', 10,"", b'Due Date only allows time data, check your values. Please format the time as such using military time. Year-Month-Day Hour:Minute ex. 2020-06-22 19:10')
+    ('testing exam again', 'description', 10,"", b'Please format date &amp; time as')
     ))
 
 def test_edit_errors(client, name, description, points, edit_date, error):
@@ -114,7 +147,9 @@ def test_edit_errors(client, name, description, points, edit_date, error):
     assert b'Logged in' in rv.data
 
     response = client.post('/course/180/session/2/assignment/Edit/1/', data={'edit_name': name,
-     'edit_desc': description, 'edit_points': points, 'edit_date': edit_date },follow_redirects = True)
+     'edit_desc': description, 'edit_points': points, 'edit_date': edit_date,
+     'edit_type': 'standard'}, follow_redirects = True)
+    print(response.data)
     assert error in response.data
 
     rv = logout(client)

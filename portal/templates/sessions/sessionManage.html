@@ -32,7 +32,9 @@
 
         <tr class='session'>
 
+
           <td><h4>{{ session['session_name'] }}</h4></td>
+
 
 
           <div class="links">
@@ -42,6 +44,8 @@
             <td><a href="{{ url_for('sessions.session_edit', course_id=session['course_id'], sessions_id=session['id']) }}">Edit</a></td>
 
             <td><a href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Assignments</a></td>
+
+              <a href="{{ url_for('teacher_views.all_grades', course_id=session['course_id'], sessions_id=session['id'])}}">Student Grades</a>
 
           </div>
 

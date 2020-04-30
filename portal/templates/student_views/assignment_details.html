@@ -29,7 +29,16 @@
       <td>{{ assignment['points'] }}</td>
       <td class='table_data'>{{ assignment['due_time'] }}</td>
 
+
     </tr>
+
+{% if assignment['type'] == 'upload' %}
+
+  <a class="submit_assignment" href="#">Submit Assignment</a>
+
+{% endif %}
+
+
 
   </table>
 </section>
