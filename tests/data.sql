@@ -37,8 +37,8 @@ VALUES (5, 1),
 
 
 INSERT INTO assignments (sessions_id, assign_name, description, points, due_time, type)
-VALUES (2, 'exam1', 'first exam of course', 25, '2020-06-22 19:10', 'upload'),
-        (1, 'test1', 'first test of course', 30, '2020-07-24 10:05', 'standard');
+VALUES (2, 'exam1', 'first exam of course', 25, '2020-06-22 19:10', 'standard'),
+        (1, 'test1', 'first test of course', 30, '2020-07-24 10:05', 'upload');
 
 
 INSERT INTO submissions (assignment_id, student_id, grade, feedback)
