@@ -87,11 +87,35 @@ def test_submission_form(client):
 
 def test_file_upload(client):
 
-    response = client.post('/upload')
+    # Anonymous user should get redirected
+    response = client.post('/course/216/session/1/assignment/2/submit')
 
     assert response.status_code == 302
 
-    # Check that an uploaded file appears in the file system
+    with client:
+        client.post('/login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
+        # As a student, upload a file
+        response = client.post('/course/216/session/1/assignment/2/submit')
 
-    # Check that a file uploaded with the same same doesn't override
-    # the original file
+        # Check that an uploaded file appears in the file system
+
+        # Check that a file uploaded with the same same doesn't override
+        # the original file
+
+
+@pytest.mark.parametrize(('url', 'error'), (
+    ('/course/216/session/1/assignment/99/submit', 404),
+    ('/course/216/session/99/assignment/2/submit', 404),
+    ('/course/999/session/1/assignment/2/submit', 404),
+    ('/course/216/session/1/assignment/1/submit', 403),
+    ('/course/216/session/2/assignment/2/submit', 403),
+    ('/course/180/session/2/assignment/1/submit', 403)
+))
+def test_file_upload_redirects(client, url, error):
+
+    with client:
+        client.post('/login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
+
+        response = client.get(url)
+
+        assert response.status_code == error

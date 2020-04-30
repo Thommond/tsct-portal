@@ -169,9 +169,11 @@ def grade_submission(course_id, session_id, assignment_id, submission_id):
     return render_template('submissions/feedback.html', assignment=assignment, student=student['name'], session=session, submission=submission)
 
 
-@bp.route('/course/<int:course_id>/session/<int:session_id>/assignment/<int:assign_id>/submit')
-def submission_form(course_id, session_id, assign_id):
-
+@bp.route('/course/<int:course_id>/session/<int:session_id>/assignment/<int:assign_id>/submit', methods=('GET', 'POST'))
+@auth.login_required
+@auth.student_required
+def upload_submission(course_id, session_id, assign_id):
+    """Creates the page that students use to upload and submit an assignment"""
     with db.get_db() as con:
         with con.cursor() as cur:
 
@@ -188,10 +190,28 @@ def submission_form(course_id, session_id, assign_id):
 
             assignment = cur.fetchone()
 
+            in_session = False
+
+            if session:
+
+                cur.execute("""SELECT * FROM rosters
+                    WHERE session_id = %s AND user_id = %s""",
+                    (session['id'], g.user['id'],))
+
+                if cur.fetchone():
+
+                    in_session = True
+
+    if not assignment or not session or not course:
+
+        abort(404)
+
+    if session['course_id'] != course['course_num']:
+        abort(403)
+    if assignment['sessions_id'] != session['id']:
+        abort(403)
+    if not in_session:
+        abort(403)
+
+
     return render_template('submissions/submit_form.html', course=course, session=session, assignment=assignment)
-
-
-@bp.route('/upload', methods=('POST',))
-def upload():
-
-    pass
