@@ -33,7 +33,8 @@ VALUES ('We meet every Tues-Thurs at 1:30 to 2:45', 'ENG-216-D',
 
 INSERT INTO rosters (user_id, session_id)
 VALUES (5, 1),
-       (2, 1);
+       (2, 1),
+       (2, 2);
 
 
 INSERT INTO assignments (sessions_id, assign_name, description, points, due_time)

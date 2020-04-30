@@ -172,7 +172,8 @@ def grade_submission(course_id, session_id, assignment_id, submission_id):
 def letter_grade(points, total):
     """Given an amount of points and the total points availage,
     returns the corresponding letter grade for the average"""
-    
+    print(points)
+    print(total)
     # letter_grade(9, 10) returns 'A'
     avg = (points / total) * 100
 

@@ -14,7 +14,8 @@ def assign_grade(course_id, sessions_id, assign_id):
     course = courses.get_course(course_id)
     session = sessions.get_session(sessions_id)
     students = get_students(sessions_id)
-    assignment = get_assignment(assign_id)
+    assignment = assign.get_assignment(assign_id)
+    students_assign_grade = []
 
     if g.user['id'] != course['teacher_id']:
         abort(403)
@@ -41,35 +42,24 @@ def assign_grade(course_id, sessions_id, assign_id):
                 (student['id'], assign_id,)
                 )
                 # all assignments per student
-                assignments = cur.fetchone()
-                print(assignments)
+                assignment = cur.fetchone()
 
                 cur.execute("""
-                    SELECT grade, id, assignment_id, student_id
+                    SELECT grade
                     FROM submissions
                     WHERE student_id = %s AND assignment_id = %s""",
                     (student['user_id'], assign_id,))
-                student_submissions = cur.fetchone()
-                print(student_submissions)
+                student_submission = cur.fetchone()
+                # Adding submission to list
+                if student_submission[0] == None:
+                    student_submission[0] = 0
+                letter_grade = submissions.letter_grade(student_submission[0], assignment['points'])
 
+                one_assignment_grade = (student['name'], student_submission, letter_grade)
+
+                students_assign_grade.append(one_assignment_grade)
             # I need student name and grade (points, for now)
-    return render_template('layouts/teacher_view/assign_grades.html', students=students, session=session, assignments=assignments, student_submissions=student_submissions)
-
-def get_assignment(assign_id):
-    """Gets the assignment from the database"""
-    with db.get_db() as con:
-        with con.cursor() as cur:
-            cur.execute(
-                'SELECT id, assign_name, description, points, sessions_id, due_time'
-                ' FROM assignments WHERE id = %s',
-                (assign_id, )
-            )
-            assign = cur.fetchone()
-
-            if assign is None:
-                abort(404)
-
-            return assign
+    return render_template('layouts/teacher_view/assign_grades.html', students=students, session=session, assignment=assignment, assignment_grade=students_assign_grade)
 
 
 @bp.route('/course/<int:course_id>/session/<int:sessions_id>/all_grades', methods=('GET', 'POST'))
