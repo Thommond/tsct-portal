@@ -23,9 +23,11 @@
 
       <li>
 
-        <h4><a href="{{url_for('teacher_views.assign_grade', assign_id=assignment['id'], sessions_id=assignment['sessions_id'], course_id=session['course_id'])}}">{{ assignment['assign_name'] }}</a></h4>
+        <h4>{{ assignment['assign_name'] }}</h4>
 
         <div class="links">
+
+          <a href="{{url_for('teacher_views.assign_grade', assign_id=assignment['id'], sessions_id=assignment['sessions_id'], course_id=session['course_id'])}}">View Grades</a>
 
           <a href="{{ url_for('submissions.submission_list', course_id=session['course_id'], session_id=session['id'], assignment_id=assignment['id']) }}">Submissions</a>
 

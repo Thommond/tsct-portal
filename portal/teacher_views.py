@@ -28,7 +28,6 @@ def assign_grade(course_id, sessions_id, assign_id):
 
     for student in students:
         # default of zero
-        print(student)
         points = 0
         grades = 0
 
@@ -44,21 +43,22 @@ def assign_grade(course_id, sessions_id, assign_id):
                 # all assignments per student
                 assignment = cur.fetchone()
 
+                # All grades per student's assignment
                 cur.execute("""
                     SELECT grade
                     FROM submissions
                     WHERE student_id = %s AND assignment_id = %s""",
                     (student['user_id'], assign_id,))
                 student_submission = cur.fetchone()
-                # Adding submission to list
+
+                # If there is no submission, set a default grade of zero
                 if student_submission[0] == None:
                     student_submission[0] = 0
+
                 letter_grade = submissions.letter_grade(student_submission[0], assignment['points'])
-
                 one_assignment_grade = (student['name'], student_submission, letter_grade)
-
+                # Adding submission to list
                 students_assign_grade.append(one_assignment_grade)
-            # I need student name and grade (points, for now)
     return render_template('layouts/teacher_view/assign_grades.html', students=students, session=session, assignment=assignment, assignment_grade=students_assign_grade)
 
 
@@ -83,7 +83,6 @@ def all_grades(course_id, sessions_id):
 
     for student in students:
         # default of zero
-        print(student)
         points = 0
         grades = 0
 
@@ -98,7 +97,6 @@ def all_grades(course_id, sessions_id):
                 )
                 # all assignments per student
                 assignments = cur.fetchall()
-                print(assignments)
                 for assignment in assignments:
 
                     if assignment['points'] != None:
