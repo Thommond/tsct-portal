@@ -102,11 +102,16 @@ def test_file_upload(client):
     with client:
         client.post('/login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
         # As a student, upload a file
-        response = client.post('/course/216/session/1/assignment/2/submit')
+        response = client.post('/course/216/session/1/assignment/2/submit',
+            data={'file': (io.BytesIO(b"This is a test file"), 'test.txt')})
+        assert response.status_code == 302
 
         # Check that an uploaded file appears in the file system
+        file = open('portal/uploads/test.txt')
+        assert 'This is a test file' in file.read()
+        file.close()
 
-        # Check that a file uploaded with the same same doesn't override
+        # todo - Check that a file uploaded with the same same doesn't override
         # the original file
 
 

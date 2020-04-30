@@ -6,7 +6,7 @@
 
 <header>
   <h2>Submit work for {{ assignment['assign_name'] }}</h2>
-  <a class="back" href="/course/course['course_num']/session/session['id']/assignment_details/assignment['id']">Back</a>
+  <a class="back" href="{{ url_for('student_views.assign_view', course_id=course['course_num'], session_id=session['id'], assign_id=assignment['id']) }}">Back</a>
 </header>
 
 {% for message in get_flashed_messages() %}

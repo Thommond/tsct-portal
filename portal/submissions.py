@@ -1,6 +1,8 @@
 from flask import (
-    render_template, Blueprint, session, g, flash, request, redirect, url_for, abort
+    render_template, Blueprint, session, g, flash, request, redirect, url_for, abort, current_app
 )
+from werkzeug.utils import secure_filename
+import os
 
 from . import db, auth
 
@@ -169,6 +171,8 @@ def grade_submission(course_id, session_id, assignment_id, submission_id):
     return render_template('submissions/feedback.html', assignment=assignment, student=student['name'], session=session, submission=submission)
 
 
+
+
 @bp.route('/course/<int:course_id>/session/<int:session_id>/assignment/<int:assign_id>/submit', methods=('GET', 'POST'))
 @auth.login_required
 @auth.student_required
@@ -203,7 +207,6 @@ def upload_submission(course_id, session_id, assign_id):
                     in_session = True
 
     if not assignment or not session or not course:
-
         abort(404)
 
     if session['course_id'] != course['course_num']:
@@ -216,18 +219,26 @@ def upload_submission(course_id, session_id, assign_id):
     if request.method == 'POST':
 
         error = None
-
+        # Check if the post request did not contain a file
         if 'file' not in request.files:
             error = 'File not selected'
 
         else :
             file = request.files['file']
-
+            # Check if the browser submitted a blank file with no filename
             if file.filename == '':
                 error = 'File not selected'
 
+        if error == None:
+            # Ensure that the filename is safe
+            filename = secure_filename(file.filename)
+            print(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
 
-        flash(error)
+            return redirect(url_for('student_views.assign_view', course_id=course['course_num'], session_id=session['id'], assign_id=assignment['id']))
+
+        else:
+            flash(error)
 
 
     return render_template('submissions/submit_form.html', course=course, session=session, assignment=assignment)

@@ -47,6 +47,8 @@ def create_app(test_config=None):
     app.register_error_handler(400, bad_request)
     app.register_error_handler(500, handle_exception)
     app.register_error_handler(410, gone)
+    # Set the file path for the file uploads folder
+    app.config['UPLOAD_FOLDER'] = 'portal/uploads'
 
     # Configure App
     # -------------
