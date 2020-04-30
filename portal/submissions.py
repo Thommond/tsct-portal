@@ -220,7 +220,9 @@ def upload_submission(course_id, session_id, assign_id):
 
         error = None
         # Check if the post request did not contain a file
+        print(request.files)
         if 'file' not in request.files:
+            print('hi')
             error = 'File not selected'
 
         else :
