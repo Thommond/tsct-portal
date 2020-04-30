@@ -74,6 +74,7 @@ def all_grades(course_id, sessions_id):
     # Holds all total grades
     total_student_grades = []
 
+
     if g.user['id'] != course['teacher_id']:
         abort(403)
 
