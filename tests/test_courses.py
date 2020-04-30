@@ -102,14 +102,14 @@ def test_create_course(client):
         assert b'Create a New Course' in response.data
 
         response_2 = client.post('/courses/create', data={
-                'courseNumber': 101,
-                'courseTitle': 'Welding',
+                'courseNumber': 102,
+                'courseTitle': 'Welding Tig',
                 'description': 'Learning how to use mig welder',
                 'courseCredits': 3,
                 'major_name': 2
             }, follow_redirects=True)
 
-        assert b'<h4>Welding</h4>' in response_2.data
+        assert b'<h4>Welding Tig</h4>' in response_2.data
         assert b'<h4>Software Project 2</h4>' in response_2.data
         assert b'Course Management' in response_2.data
 
@@ -128,7 +128,9 @@ def test_create_course(client):
   (123, 'title_of_course', 1, 'cset', b'Major not found'),
   (123, 'title_of_course', 1, 82, b'Major not found'),
   ('hi', 'title_of_course', 1, 1, b'Course number needs to be a number'),
-  ('', 'title_of_course', 1, 1, b'Course number is required')
+  ('', 'title_of_course', 1, 1, b'Course number is required'),
+  (180, 'title_of_course', '3', 1, b'Course Number already exists' ),
+  (190, 'Software Project 2', '3', 1, b'Course Name already exists')
 ))
 
 def test_create_course_validation(client, courseNumber, courseTitle, courseCredits, major_name, error):

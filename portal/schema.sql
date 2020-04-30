@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS sessions CASCADE;
 DROP TABLE IF EXISTS majors CASCADE;
 DROP TABLE IF EXISTS assignments CASCADE;
 DROP TABLE IF EXISTS rosters CASCADE;
+DROP TABLE IF EXISTS submissions CASCADE;
 
 -- Major
 CREATE TABLE majors (
@@ -56,7 +57,8 @@ CREATE TABLE assignments (
   assign_name text NOT NULL,
   description text NOT NULL,
   points integer NOT NULL,
-  due_time timestamp NOT NULL
+  due_time timestamp NOT NULL,
+  type varchar(10)
 );
 
 -- Rosters
@@ -64,4 +66,13 @@ CREATE TABLE rosters (
 id bigserial PRIMARY KEY,
 user_id bigint REFERENCES users (id),
 session_id bigint REFERENCES sessions (id)
-)
+);
+
+--Submissions
+CREATE TABLE submissions (
+  id bigserial PRIMARY KEY,
+  assignment_id bigint REFERENCES assignments (id),
+  student_id bigint REFERENCES users (id),
+  grade integer,
+  feedback text
+);
