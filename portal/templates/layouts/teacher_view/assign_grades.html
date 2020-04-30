@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}TSCT Portal - Grades for assignment{% endblock %}
+
+{% block content%}
+
+<header>
+
+  <h2>Grades for {{ assignment['assign_name'] }}</h2>
+  <a class="back" href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Back</a>
+
+</header>
+
+<h4 id="assign_h4">Description: {{ assignment['description'] }}</h4>
+
+<table>
+  <tr>
+    <th>Student Name</th>
+    <th>Grade</th>
+    <th>Letter Grade</th>
+  </tr>
+    {% for value in assignment_grade %}
+    <tr>
+      <td>{{ value[0] }}</td>
+      <td>{{ value[1][0] }}/{{ assignment['points'] }}</td>
+      <td>{{ value[2] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
