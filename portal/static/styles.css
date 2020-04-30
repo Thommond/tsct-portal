@@ -268,7 +268,21 @@ th {
 
 }
 
+#style_tables {
+display: flex;
+flex-direction: row;
+justify-content: left;
+}
 
+#style_tables td {
+  padding: 5px;
+}
+
+@media (min-width:760px) {
+#style_tables {
+  justify-content: center;
+}
+}
 
 /**
 *Error Pages
