@@ -173,7 +173,6 @@ def get_assignment(id, all=False):
     with db.get_db() as con:
         with con.cursor() as cur:
 
-
             if all==False:
                 cur.execute(
                     'SELECT *'
@@ -189,7 +188,7 @@ def get_assignment(id, all=False):
                     (id, )
                 )
                 assign = cur.fetchall()
-                print(assign)
+
 
             if assign is None:
                 abort(404)
