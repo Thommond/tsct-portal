@@ -32,7 +32,13 @@
 
         <tr class='session'>
 
+<<<<<<< HEAD
           <td><h4>{{ session['session_name'] }}</h4></td>
+=======
+        <li>
+          
+          <h4>{{ session['session_name'] }}</h4>
+>>>>>>> 337e3f4a94bb164bff7b623dbca0ce0b7322e6ed
 
 
           <div class="links">
@@ -42,6 +48,8 @@
             <td><a href="{{ url_for('sessions.session_edit', course_id=session['course_id'], sessions_id=session['id']) }}">Edit</a></td>
 
             <td><a href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Assignments</a></td>
+
+              <a href="{{ url_for('teacher_views.all_grades', course_id=session['course_id'], sessions_id=session['id'])}}">Student Grades</a>
 
           </div>
 

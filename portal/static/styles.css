@@ -355,6 +355,7 @@ td:nth-child(3n)  {
 
 }
 
+<<<<<<< HEAD
 @media (min-width: 1000px) {
 
   section.grade,
@@ -401,6 +402,22 @@ td:nth-child(3n)  {
   section.grades {
     width: 300px;
   }
+=======
+#style_tables {
+display: flex;
+flex-direction: row;
+justify-content: left;
+}
+
+#style_tables td {
+  padding: 5px;
+}
+
+@media (min-width:760px) {
+#style_tables {
+  justify-content: center;
+}
+>>>>>>> 337e3f4a94bb164bff7b623dbca0ce0b7322e6ed
 }
 
 /**
