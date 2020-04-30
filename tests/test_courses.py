@@ -186,7 +186,7 @@ def test_course_manage(client):
     with client:
         response = client.get('/courses')
         assert b'<h2>Course Management</h2>' in response.data
-        assert b'<h3>Click the + below to create a new course</h3>' in response.data
+        assert b'<h3>Click the link below to create a new course</h3>' in response.data
         assert b'Software Project 2' in response.data
 
         rv = logout(client)

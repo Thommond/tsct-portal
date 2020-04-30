@@ -53,8 +53,9 @@ def test_assignment_grades(client):
     # Making sure that students' grades and assignment points display on page
     # student name, letter grade, submission points, total points
     assert b'bob phillp' in response.data
-    assert b'<td>F</td>' in response.data
-    assert b'<td>0/25</td>' in response.data
+    print(response.data)
+    assert b'<td>A</td>' in response.data
+    assert b'<td>24/25</td>' in response.data
     # Log out
     rv = logout(client)
     assert b'TSCT Portal Login' in rv.data

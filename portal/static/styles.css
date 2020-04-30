@@ -107,15 +107,6 @@ ul {
   padding: 0;
 }
 
-ul.roster li {
-  display: flex;
-  justify-content: space-between;
-  padding: .5rem;
-}
-
-ul.roster li:nth-child(2n) {
-  background-color: lightgray;
-}
 
 a {
   text-decoration: none;
@@ -160,24 +151,22 @@ section.courseSession h4 {
   margin: 0;
 }
 
-section.teacher_courses li,
-section.assignments li,
-section.courseSession li {
-  align-items: center;
-  border: 1px solid #8B1E41;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+section.grades,
+section.details,
+section.student_grades,
+section.grade,
+section.teacher_courses,
+section.courseSession,
+section.assignments,
+section.submissions {
+    margin-left:auto;
+    margin-right:auto;
 }
 
-section.teacher_courses h4 ,
-section.assignments li h4,
-section.courseSession li h4 {
-  background-color: white;
-  color: #8B1E41;
-  font-size: 24px;
-  margin: 1rem;
+section.student_grades{
+  margin-bottom: 20px;
 }
+
 
 div.links {
   margin-bottom: 1rem;
@@ -221,7 +210,84 @@ table, th, td {
 th {
   background: #8B1E41;
   color: white;
+}
 
+
+tr.course h4 {
+  background-color: inherit;
+  margin: 2px;
+}
+
+tr.assignment h4 {
+  margin: 0;
+  background-color: white;
+  color: black;
+}
+
+tr.session h4 {
+  margin: 0;
+  background-color: white;
+  color: black;
+}
+
+tr.course h4 {
+  margin: 0;
+  background-color: white;
+  color: black;
+}
+
+tr.grading td {
+  padding-left: 5px;
+}
+
+tr.grading td:nth-child(odd) {
+  width: 350px;
+}
+
+tr.roster td {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+
+#hover tbody tr:hover:nth-child(n+2),
+#hover section.teacher_courses tbody tr:hover.course:nth-child(2n){
+  box-shadow: inset 0px 0px 18px #656465;
+}
+
+tr:nth-child(2n) {
+  background-color: #c5c5c5;
+}
+
+tr:nth-child(2n) h4 {
+  background-color: #c5c5c5;
+}
+
+tr td.table_info {
+  width: 200px;
+}
+
+tr td.table_data {
+  width: 150px;
+}
+
+tr td.feedback {
+  width: 300px;
+}
+
+tr td.course_name {
+  width: 100px;
+}
+
+
+th, td {
+  padding: 0;
+  margin: 0;
+}
+
+td:nth-child(2n),
+td:nth-child(3n)  {
+  width: 50px;
 }
 
 #assign_h4 {
@@ -260,6 +326,24 @@ th {
     flex-direction: row;
   }
 
+  section.grade,
+  section.teacher_courses,
+  section.courseSession {
+    width: 70%;
+  }
+
+  section.student_grades {
+    width: 100%;
+  }
+
+  section.details {
+    width: 60%;
+  }
+
+  section.grades {
+    width: 300px;
+  }
+
   div.links {
     margin: 0;
   }
@@ -270,9 +354,60 @@ th {
      text-align: justify;
   }
 
+  tr td.table_info {
+    font-size: 15px;
+  }
 
 }
 
+
+@media (min-width: 1000px) {
+
+  section.grade,
+  section.teacher_courses,
+  section.courseSession,
+  section.assignments {
+    width: 70%;
+  }
+
+  section.student_grades {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  section.details {
+    width: 485px;
+  }
+
+  section.grades {
+    width: 300px;
+  }
+
+}
+
+@media (min-width: 1100px) {
+
+  section.student_grades,
+  section.grade,
+  section.teacher_courses,
+  section.courseSession,
+  section.assignments {
+    width: 745px;
+  }
+
+  section.student_grades {
+    width: 1000px;
+  }
+
+  section.details {
+    width: 485px;
+  }
+
+  section.grades {
+    width: 300px;
+  }
+  
 #style_tables {
 display: flex;
 flex-direction: row;
@@ -288,6 +423,7 @@ justify-content: left;
   justify-content: center;
 }
 }
+
 
 /**
 *Error Pages

@@ -12,40 +12,44 @@
 
 </header>
 
-<section class='courseSession'><!--Start section edit sessions-->
+<section id='hover' class='courseSession'><!--Start section edit sessions-->
 
 
 <h3>Sessions</h3>
 
-  <ul>
+  <table class='sessions'>
+
+    <tr>
+      <th>Course Session</th>
+      <th>Add Student</th>
+      <th>Edit Session</th>
+      <th>Assignment Page</th>
+      <th>Grade Page</th>
+    </tr>
 
     {% for session in sessions %}
 
-
-
-
       {% if session['course_id'] == course['course_num'] %}
 
+        <tr class='session'>
 
-        <li>
-          
-          <h4>{{ session['session_name'] }}</h4>
+          <td><h4>{{ session['session_name'] }}</h4></td>
+
 
 
           <div class="links">
 
-            <a href="{{ url_for('roster.display_roster', course_id=session['course_id'], session_id=session['id']) }}">Roster</a>
+            <td><a href="{{ url_for('roster.display_roster', course_id=session['course_id'], session_id=session['id']) }}">Roster</a></td>
 
+            <td><a href="{{ url_for('sessions.session_edit', course_id=session['course_id'], sessions_id=session['id']) }}">Edit</a></td>
 
-            <a href="{{ url_for('sessions.session_edit', course_id=session['course_id'], sessions_id=session['id']) }}">Edit</a>
+            <td><a href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Assignments</a></td>
 
-              <a href="{{ url_for('assign.assign_manage', course_id=session['course_id'], sessions_id=session['id']) }}">Assignments</a>
-
-              <a href="{{ url_for('teacher_views.all_grades', course_id=session['course_id'], sessions_id=session['id'])}}">Student Grades</a>
+            <td><a href="{{ url_for('teacher_views.all_grades', course_id=session['course_id'], sessions_id=session['id'])}}">Student Grades</a></td>
 
           </div>
 
-        </li>
+        </tr>
 
     {% endif %}
 
@@ -55,13 +59,13 @@
 
 
     {% endfor %}
-  </ul>
+  </table>
 
 
   <!--Below is for create Session link and info-->
-  <h3>Click the + below to create a new session</h3>
+  <h3>Click the link below to create a new session</h3>
 
-  <a href="{{ url_for('sessions.session_create', course_id=course['course_num'] )}}">+</a>
+  <a href="{{ url_for('sessions.session_create', course_id=course['course_num'] )}}">Add Session</a>
 
 
 </section><!--End section-->

@@ -58,7 +58,7 @@ CREATE TABLE assignments (
   description text NOT NULL,
   points integer NOT NULL,
   due_time timestamp NOT NULL,
-  type varchar(10)
+  type varchar(10) NOT NULL CHECK (type IN ('standard', 'upload'))
 );
 
 -- Rosters

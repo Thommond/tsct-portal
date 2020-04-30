@@ -10,7 +10,7 @@
   <a href="{{ url_for('index') }}"  class='back'>Back</a>
 
 </header>
-
+<section id='hover' class='student_grades'>
   <table class="schedule">
 
     <tr>
@@ -21,26 +21,27 @@
       <th>Location</th>
       <th>Room Number</th>
       <th>Teacher Name</th>
+      <th>Grades of course</th>
 
     </tr>
 
   {% for info in infos %}
-    {% if g.user['id'] == info['user_id'] %}
 
       <tr>
 
-        <td><a href="{{ url_for('student_views.session_assignments', session_id=info['id'], course_id=info['course_id']) }}">{{ info['session_name'] }}</a></td>
-        <td>{{ info['description'] }}</td>
-        <td>{{ info['times'] }}</td>
-        <td>{{ info['location'] }}</td>
+        <td class='course_name'><a href="{{ url_for('student_views.session_assignments', session_id=info['id'], course_id=info['course_id']) }}">{{ info['session_name'] }}</a></td>
+        <td class='table_info'>{{ info['description'] }}</td>
+        <td class='table_info'>{{ info['times'] }}</td>
+        <td class='table_info'>{{ info['location'] }}</td>
         <td>{{ info['room_number'] }}</td>
         <td>{{ info['name'] }}</td>
+        <td><a href="{{ url_for('student_views.grade_book', session_id=info['id'], course_id=info['course_id']) }}">Grade</a></td>
 
       </tr>
 
-    {% endif %}
   {% endfor %}
 
   </table>
+</section>
 
 {% endblock %}

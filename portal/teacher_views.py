@@ -59,7 +59,7 @@ def assign_grade(course_id, sessions_id, assign_id):
                 one_assignment_grade = (student['name'], student_submission, letter_grade)
                 # Adding submission to list
                 students_assign_grade.append(one_assignment_grade)
-    return render_template('layouts/teacher_view/assign_grades.html', students=students, session=session, assignment=assignment, assignment_grade=students_assign_grade)
+    return render_template('teacher_views/assign_grades.html', students=students, session=session, assignment=assignment, assignment_grade=students_assign_grade)
 
 
 @bp.route('/course/<int:course_id>/session/<int:sessions_id>/all_grades', methods=('GET', 'POST'))
