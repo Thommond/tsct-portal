@@ -14,8 +14,8 @@ def test_edit_roster(client):
     with client:
         response = client.post('/login', data={'email': 'teacher@stevenscollege.edu', 'password': 'qwerty'})
         #Check that a student appears in the roster list after being added
-        response = client.post('/courses/180/sessions/2/roster', data={'email': 'student@stevenscollege.edu'})
-        assert b'bob phillp' in response.data
+        response = client.post('/courses/180/sessions/2/roster', data={'email': 'student2@stevenscollege.edu'})
+        assert b'Marisa Kirisame' in response.data
 
 @pytest.mark.parametrize(('email', 'message'), (
     ('incorrect@email.com', b'No student found'),

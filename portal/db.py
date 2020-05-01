@@ -7,6 +7,8 @@ import csv
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+from pathlib import Path
+
 from werkzeug.security import check_password_hash, generate_password_hash
 
 def get_db():
@@ -54,6 +56,14 @@ def init_db():
             with con.cursor() as cur:
                 # use the file's text to execute the SQL queries within
                 cur.execute(f.read())
+
+        # Erase existing uploaded files; make directory if it doesn't exist
+        if os.path.isdir('portal/uploads'):
+            folder = Path('portal/uploads')
+            for file in folder.iterdir():
+                os.remove(file)
+        else:
+            os.mkdir('portal/uploads')
 
 
 @click.command("init-db")

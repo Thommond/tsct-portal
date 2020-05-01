@@ -33,9 +33,13 @@
 
   </table>
 
+  {% for message in get_flashed_messages() %}
+    <p class="success">{{ message }}</p>
+  {% endfor %}
+
   {% if assignment['type'] == 'upload' %}
 
-    <a class="submit_assignment" href="#">Submit Assignment</a>
+    <a class="submit_assignment" href="{{ url_for('submissions.upload_submission', course_id=session['course_id'], session_id=session['id'], assign_id=assignment['id'])}}">Submit Assignment</a>
 
   {% endif %}
 </section>

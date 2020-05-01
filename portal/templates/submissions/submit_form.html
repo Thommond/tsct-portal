@@ -1,0 +1,27 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}TSCT Portal - Submit Assignment{% endblock %}
+
+{% block content %}
+
+<header>
+  <h2>Submit work for {{ assignment['assign_name'] }}</h2>
+  <a class="back" href="{{ url_for('student_views.assign_view', course_id=course['course_num'], session_id=session['id'], assign_id=assignment['id']) }}">Back</a>
+</header>
+
+{% for message in get_flashed_messages() %}
+  <p class="flash">{{ message }}</p>
+{% endfor %}
+
+<form class="submit" method="post" enctype=multipart/form-data>
+
+  <label for="file">Upload Assignment:
+
+    <input type="file" name="file" accept=".pdf, .txt, .doc, .docx, .odt, .png, .jpg, .jpeg, .ppt, .pptx, .xsl, .xslx">
+
+  </label>
+
+  <input type="submit" name="submit" value="Submit Assignment">
+</form>
+
+{% endblock %}

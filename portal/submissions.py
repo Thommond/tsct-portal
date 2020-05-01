@@ -1,6 +1,8 @@
 from flask import (
-    render_template, Blueprint, session, g, flash, request, redirect, url_for, abort
+    render_template, Blueprint, session, g, flash, request, redirect, url_for, abort, current_app
 )
+from werkzeug.utils import secure_filename
+import os
 
 from . import db, auth
 
@@ -170,6 +172,121 @@ def grade_submission(course_id, session_id, assignment_id, submission_id):
             flash(success_message, 'success')
 
     return render_template('submissions/feedback.html', assignment=assignment, student=student['name'], session=session, submission=submission)
+
+
+@bp.route('/course/<int:course_id>/session/<int:session_id>/assignment/<int:assign_id>/submit', methods=('GET', 'POST'))
+@auth.login_required
+@auth.student_required
+def upload_submission(course_id, session_id, assign_id):
+    """Creates the page that students use to upload and submit an assignment"""
+    with db.get_db() as con:
+        with con.cursor() as cur:
+
+            cur.execute('SELECT * FROM courses WHERE course_num = %s',
+                (course_id,))
+
+            course = cur.fetchone()
+
+            cur.execute('SELECT * FROM sessions WHERE id = %s', (session_id,))
+
+            session = cur.fetchone()
+
+            cur.execute('SELECT * FROM assignments WHERE id = %s', (assign_id,))
+
+            assignment = cur.fetchone()
+
+            in_session = False
+
+            if session:
+
+                cur.execute("""SELECT * FROM rosters
+                    WHERE session_id = %s AND user_id = %s""",
+                    (session['id'], g.user['id'],))
+
+                if cur.fetchone():
+
+                    in_session = True
+
+    if not assignment or not session or not course:
+        abort(404)
+
+    if session['course_id'] != course['course_num']:
+        abort(403)
+    if assignment['sessions_id'] != session['id']:
+        abort(403)
+    if not in_session:
+        abort(403)
+
+    if request.method == 'POST':
+
+        error = None
+        # Check if the post request did not contain a file
+
+        if 'file' not in request.files:
+
+            error = 'File not selected'
+
+        else :
+            file = request.files['file']
+            # Check if the browser submitted a blank file with no filename
+            if file.filename == '':
+                error = 'File not selected'
+
+            else:
+
+                # Ensure that the filename is safe
+                filename = secure_filename(file.filename)
+
+                # Check that the file extension is valid
+                allowed_extensions = ['pdf', 'txt', 'doc', 'docx', 'odt', 'png', 'jpg', 'jpeg', 'ppt', 'pptx', 'xsl', 'xslx']
+
+                if filename.rsplit('.', 1)[1].lower() not in allowed_extensions:
+
+                    error = 'File extension not allowed'
+
+
+        if error == None:
+
+            with db.get_db() as con:
+                with con.cursor() as cur:
+
+                    cur.execute("""SELECT * FROM submissions
+                        WHERE assignment_id = %s AND student_id = %s""",
+                        (assignment['id'], g.user['id'],))
+                    submission = cur.fetchone()
+
+                    if not submission:
+                        # Create a submission for the student if they don't already have one
+                        cur.execute("""INSERT INTO submissions (assignment_id, student_id)
+                            VALUES (%s, %s)""", (assignment['id'], g.user['id'],))
+                        con.commit()
+
+                        cur.execute("""SELECT * FROM submissions
+                            WHERE assignment_id = %s AND student_id = %s""",
+                            (assignment['id'], g.user['id'],))
+                        submission = cur.fetchone()
+
+            # Adds the submission id to the start of the filename
+            new_filename = f"{submission['id']}-{filename}"
+
+            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_filename))
+
+            with db.get_db() as con:
+                with con.cursor() as cur:
+
+                    cur.execute('UPDATE submissions SET file_name = %s WHERE id = %s',
+                        (new_filename, submission['id'],))
+                    con.commit()
+
+            flash('Assignment submitted successfully', 'success')
+
+            return redirect(url_for('student_views.assign_view', course_id=course['course_num'], session_id=session['id'], assign_id=assignment['id']))
+
+        else:
+            flash(error, 'flash')
+
+
+    return render_template('submissions/submit_form.html', course=course, session=session, assignment=assignment)
 
 
 def letter_grade(points, total):

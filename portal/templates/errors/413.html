@@ -1,0 +1,15 @@
+{% extends 'errors/error_page.html' %}
+
+{% block title %}Payload too large - 413{% endblock %}
+
+{% block content %}
+<div class="error_pages">
+
+<h2>The file you attempted to upload is too large</h2>
+
+<p>Press the browser back button or click the home link below<p>
+
+<a href="{{ url_for('index')}}">Portal Home</a>
+
+</div>
+{% endblock %}

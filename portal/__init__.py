@@ -31,6 +31,10 @@ def gone(e):
 def bad_request(e):
     """Notifies the user that the request they have attempted is not excepted"""
     return render_template('errors/400.html'), 400
+
+def large_payload(e):
+    """Notifies the user that the file upload is too large"""
+    return render_template('errors/413.html'), 413
 ########################
 
 def create_app(test_config=None):
@@ -47,6 +51,11 @@ def create_app(test_config=None):
     app.register_error_handler(400, bad_request)
     app.register_error_handler(500, handle_exception)
     app.register_error_handler(410, gone)
+    app.register_error_handler(413, large_payload)
+    # Set the file path for the file uploads folder
+    app.config['UPLOAD_FOLDER'] = 'portal/uploads'
+    # Sets maximum size for uploaded files at 16mb
+    app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 
     # Configure App
     # -------------
