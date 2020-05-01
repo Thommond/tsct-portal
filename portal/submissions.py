@@ -237,7 +237,6 @@ def upload_submission(course_id, session_id, assign_id):
                 # Check that the file extension is valid
                 allowed_extensions = ['pdf', 'txt', 'doc', 'docx', 'odt', 'png', 'jpg', 'jpeg', 'ppt', 'pptx', 'xsl', 'xslx']
 
-                print(filename.rsplit('.', 1))
                 if filename.rsplit('.', 1)[1].lower() not in allowed_extensions:
 
                     error = 'File extension not allowed'
@@ -245,7 +244,29 @@ def upload_submission(course_id, session_id, assign_id):
 
         if error == None:
 
-            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+            with db.get_db() as con:
+                with con.cursor() as cur:
+
+                    cur.execute("""SELECT * FROM submissions
+                        WHERE assignment_id = %s AND student_id = %s""",
+                        (assignment['id'], g.user['id'],))
+                    submission = cur.fetchone()
+
+                    if not submission:
+                        # Create a submission for the student if they don't already have one
+                        cur.execute("""INSERT INTO submissions (assignment_id, student_id)
+                            VALUES (%s, %s)""", (assignment['id'], g.user['id'],))
+                        con.commit()
+
+                        cur.execute("""SELECT * FROM submissions
+                            WHERE assignment_id = %s AND student_id = %s""",
+                            (assignment['id'], g.user['id'],))
+                        submission = cur.fetchone()
+
+            # Adds the submission id to the start of the filename
+            new_filename = f"{submission['id']}-{filename}"
+
+            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_filename))
 
             return redirect(url_for('student_views.assign_view', course_id=course['course_num'], session_id=session['id'], assign_id=assignment['id']))
 

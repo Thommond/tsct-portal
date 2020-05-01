@@ -118,12 +118,26 @@ def test_file_upload(client):
         assert response.status_code == 302
 
         # Check that an uploaded file appears in the file system
-        file = open('portal/uploads/test.txt')
+        file = open('portal/uploads/1-test.txt')
         assert 'This is a test file' in file.read()
         file.close()
 
-        # todo - Check that a file uploaded with the same same doesn't override
-        # the original file
+        # Check that a different file uploaded with the same name doesn't
+        # overwrite the original file
+
+        client.post('/login', data={'email': 'student@stevenscollege.edu', 'password': 'asdfgh'})
+
+        response = client.post('/course/216/session/1/assignment/2/submit',
+            data={'file': (io.BytesIO(b"Hello World"), 'test.txt')})
+
+        file = open('portal/uploads/1-test.txt')
+        assert 'This is a test file' in file.read()
+        file.close()
+
+        file = open('portal/uploads/3-test.txt')
+        assert 'Hello World' in file.read()
+        file.close()
+
 
 
 @pytest.mark.parametrize(('url', 'error'), (
