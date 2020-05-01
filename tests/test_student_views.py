@@ -52,3 +52,60 @@ def test_assign_view(client):
     # test logging out
     rv = logout(client)
     assert b'TSCT Portal Login' in rv.data
+
+def test_grades(client):
+    """Test the grade_book page to see if page loades"""
+    assert client.get('/course/180/session/2/grades').status_code == 302
+
+    rv = login(
+        client, 'student@stevenscollege.edu', 'asdfgh')
+    assert b'Logged in' in rv.data
+
+    with client:
+        client.get('/courses/180/grades').status_code == 200
+
+        response = client.get('/course/180/session/2/grades')
+        assert b'Grades for Software Project 2' in response.data
+
+    rv = logout(client)
+    assert b'TSCT Portal Login' in rv.data
+
+def test_show_grades(client):
+    """Tests that student can veiw grades on a course"""
+
+    with client:
+
+        client.post('/login', data={'email': 'student@stevenscollege.edu', 'password': 'asdfgh'})
+
+        response = client.get('/course/180/session/2/grades')
+
+        assert b'24/25' in response.data
+        assert b'good' in response.data
+
+def test_gradeless(client):
+    """Tests if submission is missing the grade should be zero"""
+    with client:
+        client.post('login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
+
+        response = client.get('/course/180/session/2/grades')
+        assert b'Logged in' in response.data
+        assert b'0/25' in response.data
+
+        response = client.get('/course/216/session/1/grades')
+        assert b'Logged in' in response.data
+        assert b'0/30' in response.data
+
+@pytest.mark.parametrize(('course_id', 'error'), (
+    (111, 403),
+    (58, 404)
+))
+
+def test_grade_error_codes(client, course_id, error):
+    """Checks to see if accessing different grade books shows an error"""
+    with client:
+
+        client.post('/login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
+
+        response = client.get(f'/course/{course_id}/session/2/grades')
+
+        assert response.status_code == error

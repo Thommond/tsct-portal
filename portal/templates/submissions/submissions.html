@@ -9,15 +9,22 @@
   <a class="back" href="{{ url_for('assign.assign_manage', course_id = session['course_id'], sessions_id = session['id']) }}">Back</a>
 </header>
 
-<ul class="submissions">
-  {% for submission in submissions %}
+<section id='hover' class='grade'>
+  <table class="submissions">
 
-    <li>
-      <p>{{ submission['name'] }}</p>
-      <a href="{{ url_for('submissions.grade_submission', course_id=session['course_id'], session_id=session['id'], assignment_id=assignment['id'], submission_id=submission['id']) }}">Enter Grade</a>
-    </li>
+    <tr>
+      <th>Students</th>
+      <th>Enter Grade Page</th>
+    </tr>
 
-  {% endfor %}
-</ul>
+    {% for submission in submissions %}
 
+      <tr class='grading'>
+        <td>{{ submission['name'] }}</td>
+        <td><a class='enter_grade' href="{{ url_for('submissions.grade_submission', course_id=session['course_id'], session_id=session['id'], assignment_id=assignment['id'], submission_id=submission['id']) }}">Enter Grade</a></td>
+      </tr>
+
+      {% endfor %}
+    </table>
+<section class='grade'>
 {% endblock %}

@@ -171,8 +171,6 @@ def grade_submission(course_id, session_id, assignment_id, submission_id):
     return render_template('submissions/feedback.html', assignment=assignment, student=student['name'], session=session, submission=submission)
 
 
-
-
 @bp.route('/course/<int:course_id>/session/<int:session_id>/assignment/<int:assign_id>/submit', methods=('GET', 'POST'))
 @auth.login_required
 @auth.student_required
@@ -256,3 +254,35 @@ def upload_submission(course_id, session_id, assign_id):
 
 
     return render_template('submissions/submit_form.html', course=course, session=session, assignment=assignment)
+
+
+def letter_grade(points, total):
+    """Given an amount of points and the total points availage,
+    returns the corresponding letter grade for the average"""
+    # letter_grade(9, 10) returns 'A'
+    avg = (points / total) * 100
+
+    # more specific grades (B-, C+, etc.) can be added to scale,
+    # as long as it remains in ascending order (low to high)
+    scale = [
+        (60, 'D-'),
+        (64, 'D'),
+        (67, 'D+'),
+        (70, 'C-'),
+        (74, 'C'),
+        (77, 'C+'),
+        (80, 'B-'),
+        (84, 'B'),
+        (87, 'B+'),
+        (90, 'A-'),
+        (94, 'A'),
+        (97, 'A+')
+    ]
+
+    grade = 'F'
+
+    for value in scale:
+        if avg >= value[0]:
+            grade = value[1]
+
+    return grade

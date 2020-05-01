@@ -11,33 +11,41 @@
 
 </header>
 
-<section class='assignments'>
+<section id='hover' class='assignments'>
 
   <h3>Assignments for {{ session['session_name'] }}</h3>
 
-  <ul>
+  <table>
+
+    <tr>
+      <th>Assignments</th>
+      <th>Submission Page</th>
+      <th>Grade Page</th>
+      <th>Edit Submission</th>
+    </tr>
 
     {% for assignment in assignments %}
 
       {% if assignment['sessions_id'] == session['id'] %}
 
-      <li>
+      <tr class='assignment'>
 
-        <h4>{{ assignment['assign_name'] }}</h4>
+        <td><h4>{{ assignment['assign_name'] }}</h4></td>
 
         <div class="links">
 
-          <a href="{{ url_for('submissions.submission_list', course_id=session['course_id'], session_id=session['id'], assignment_id=assignment['id']) }}">Submissions</a>
+          <td><a href="{{ url_for('submissions.submission_list', course_id=session['course_id'], session_id=session['id'], assignment_id=assignment['id']) }}">Submissions</a></td>
 
-          <a href="{{url_for('assign.assign_edit', assign_id=assignment['id'], sessions_id=assignment['sessions_id'], course_id=session['course_id'] )}}">Edit</a>
+          <td><a href="{{url_for('teacher_views.assign_grade', assign_id=assignment['id'], sessions_id=assignment['sessions_id'], course_id=session['course_id'])}}">View Grades</a></td>
+
+          <td><a href="{{url_for('assign.assign_edit', assign_id=assignment['id'], sessions_id=assignment['sessions_id'], course_id=session['course_id'] )}}">Edit</a></td>
 
         </div>
 
-
-      </li>
+      </tr>
 
       {% if not loop.last %}
-        <hr>
+
       {% endif %}
 
       {% endif %}
@@ -45,11 +53,11 @@
     {% endfor %}
 
 
-  </ul>
+  </table>
 
-  <h3>Click the + below to create a new assignment</h3>
+  <h3>Click the link below to create a new assignment</h3>
 
-  <a href="{{ url_for('assign.assign_create', course_id=session['course_id'], sessions_id=session['id'])}}">+</a>
+  <a href="{{ url_for('assign.assign_create', course_id=session['course_id'], sessions_id=session['id'])}}">Add Assignment</a>
 
 </section>
 

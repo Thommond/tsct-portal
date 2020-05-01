@@ -8,29 +8,33 @@
   <a class="back" href="{{ url_for('student_views.view_schedule') }}">Back</a>
 </header>
 
-<section class='courseSession'>
+<section id='hover' class='courseSession'>
 
   <h3>Assignments</h3>
+  <table>
 
-    <ul>
+    <tr>
+      <th>Assigment Name</th>
+      <th>Details Page</th>
+    </tr>
 
-      {% for assignment in assignments %}
-        {% if assignment['sessions_id'] == session['id'] %}
+      <tr class='course'>
 
-        <li>
+        {% for assignment in assignments %}
+          {% if assignment['sessions_id'] == session['id'] %}
 
-          <h4>{{ assignment['assign_name'] }}</h4>
+          <td><h4>{{ assignment['assign_name'] }}</h4></td>
 
-          <div class="links">
-            <a href="{{ url_for('student_views.assign_view', assign_id=assignment['id'], session_id=session['id'], course_id=session['course_id']) }}">Details</a>
-          </div>
+            <td><div class="links">
+              <a href="{{ url_for('student_views.assign_view', assign_id=assignment['id'], session_id=session['id'], course_id=session['course_id']) }}">Details</a>
+            </div></td>
 
-        </li>
+          {% endif %}
+        {% endfor %}
 
-        {% endif %}
-      {% endfor %}
+      </tr>
 
-    </ul>
+    </table>
 
 </section>
 
