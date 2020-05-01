@@ -11,14 +11,12 @@ bp = Blueprint("student_views", __name__)
 @login_required
 @student_required
 def view_schedule():
-    """Students can view their schedule here"""
+    """Students will have the ability to view session and course
+    information from this template route"""
 
-    # Here, I will put what goes into the schedule
-    # In order, I am selecting the session name, location, room number,
-    # days and time of day, a description, teacher name, and who is in
-    # that session. I am selecting rosters.user_id because in schedule.html,
-    # I am checking what courses the currently logged in student is enrolled in.
+
     cur = db.get_db().cursor()
+    # Getting all needed info for schedule from database
     cur.execute("""
         SELECT sessions.session_name,
                 sessions.course_id,
@@ -37,6 +35,7 @@ def view_schedule():
         WHERE rosters.user_id = %s""",
         (g.user['id'],)
         )
+
     infos = cur.fetchall()
 
     cur.close()
@@ -50,14 +49,19 @@ def session_assignments(session_id, course_id):
     """Allows students to view their assignments for a specific course"""
     session = sessions.get_session(session_id)
     course = courses.get_course(course_id)
+
     if session['course_id'] != course['course_num']:
         abort(403)
+
     cur = db.get_db().cursor()
+    
     cur.execute("""
             SELECT * FROM assignments
             WHERE sessions_id = %s""",
             (session_id,))
+
     assignments = cur.fetchall()
+
     cur.close()
     return render_template("student_views/your_assignments.html", session=session, assignments=assignments, course=course)
 
@@ -93,6 +97,8 @@ def grade_book(session_id, course_id):
                 if cur.fetchone() == None:
                     cur.execute("""INSERT INTO submissions (assignment_id, student_id)
                             VALUES (%s, %s)""", (assignment['id'], g.user['id'],))
+
+
 
     submissions = get_submissions(session_id)
     """Allows student to veiw grades for a course"""

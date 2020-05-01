@@ -34,6 +34,8 @@ def submission_list(course_id, session_id, assignment_id):
 
             assignment = cur.fetchone()
 
+
+    # Security Checks
     if session == None or assignment == None:
 
         abort(404)
@@ -111,6 +113,7 @@ def grade_submission(course_id, session_id, assignment_id, submission_id):
 
                 student = cur.fetchone()
 
+    # Securtiy Checks
     if course['teacher_id'] != g.user['id']:
 
         abort(403)
@@ -192,7 +195,7 @@ def letter_grade(points, total):
         (94, 'A'),
         (97, 'A+')
     ]
-
+    # Grade is F defualt
     grade = 'F'
 
     for value in scale:

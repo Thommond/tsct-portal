@@ -53,4 +53,3 @@ def test_roster_redirect(client):
         response = client.get('/courses/216/sessions/1/roster')
 
         assert response.status_code == 403
-        

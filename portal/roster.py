@@ -28,6 +28,7 @@ def display_roster(course_id, session_id):
 
             session = cur.fetchone()
 
+
     # If the logged-in teacher is not the same as the course's teacher, redirect them
     if g.user['id'] != course['teacher_id']:
         abort(403)
@@ -59,6 +60,7 @@ def display_roster(course_id, session_id):
                     if cur.fetchone():
                         already_enrolled = True
 
+
         # If there is no student with the entered email create an error message
 
         if user == None:
@@ -83,6 +85,8 @@ def display_roster(course_id, session_id):
                     cur.execute("""INSERT INTO rosters (user_id, session_id)
                         VALUES (%s, %s)""", (user['id'], session_id,))
 
+
+
         else:
 
             flash(error)
@@ -97,5 +101,7 @@ def display_roster(course_id, session_id):
                 (session_id,))
 
             students = cur.fetchall()
+
+            
 
     return render_template('roster.html', course=course, session=session, students=students)

@@ -133,7 +133,7 @@ def test_assign_edit(client):
     rv = logout(client)
     assert b'TSCT Portal Login' in rv.data
 
-
+# Test data to ensure assign edit post request faliure
 @pytest.mark.parametrize(('name', 'description', 'points', 'edit_date', 'error'),(
     ('testing exam', 'enter discription', '', '2020-06-22T19:10', b'Points are numbers only, check your values.'),
     ('', 'enter description', 90, '2020-06-22T19:10', b'Name is required.'),
@@ -141,7 +141,8 @@ def test_assign_edit(client):
     ))
 
 def test_edit_errors(client, name, description, points, edit_date, error):
-
+    """Makes sure the proper errors are
+    flashed for a request in edit assign"""
 
     rv = login(
      client, 'teacher@stevenscollege.edu', 'qwerty')
@@ -150,14 +151,17 @@ def test_edit_errors(client, name, description, points, edit_date, error):
     response = client.post('/course/180/session/2/assignment/Edit/1/', data={'edit_name': name,
      'edit_desc': description, 'edit_points': points, 'edit_date': edit_date,
      'edit_type': 'standard'}, follow_redirects = True)
-    
+
     assert error in response.data
 
     rv = logout(client)
     assert b'TSCT Portal Login' in rv.data
 
-#check that only teacher who own a specific session can access specific assignments
+
 def test_teacher(client):
+    """check that only teacher who own a specific
+    session can access specific assignments"""
+    
     assert client.get('/course/180/session/2/assignment/Edit/2/').status_code == 302
 
     rv = login(

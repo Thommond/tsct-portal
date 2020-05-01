@@ -11,12 +11,17 @@ bp = Blueprint("teacher_views", __name__)
 @teacher_required
 
 def assign_grade(course_id, sessions_id, assign_id):
+    """Allows teachers to see a grade and point score
+    for each student for each assignment in a course session"""
+
     course = courses.get_course(course_id)
     session = sessions.get_session(sessions_id)
     students = get_students(sessions_id)
     assignment = assign.get_assignment(assign_id)
     students_assign_grade = []
 
+
+    # Security Checks
     if g.user['id'] != course['teacher_id']:
         abort(403)
 
@@ -26,8 +31,10 @@ def assign_grade(course_id, sessions_id, assign_id):
     if session['id'] != assignment['sessions_id']:
         abort(403)
 
+    # Getting database connection
     with db.get_db() as con:
         with con.cursor() as cur:
+
             # Getting each assignment data
             cur.execute(
             """SELECT assign_name, id, points, description
@@ -48,7 +55,10 @@ def assign_grade(course_id, sessions_id, assign_id):
                     SELECT grade FROM submissions
                     WHERE student_id = %s AND assignment_id = %s""",
                     (student['user_id'], assign_id,))
+
                 student_submission = cur.fetchone()
+
+                
 
                 # If there is no submission, set a default grade of zero
                 for submission_of_student in student_submission:
@@ -59,10 +69,13 @@ def assign_grade(course_id, sessions_id, assign_id):
 
                     if submission_of_student != None:
 
+                        #Get letter grade of student for assignment
                         letter_grade = submissions.letter_grade(submission_of_student, assignment['points'])
+                        #Set tuple equal to var so values can be iterated properly
                         one_assignment_grade = (student['name'], submission_of_student, letter_grade)
                         # Adding submission to list
                         students_assign_grade.append(one_assignment_grade)
+
 
 
     return render_template('teacher_views/assign_grades.html', students=students, session=session, assignment=assignment, assignment_grade=students_assign_grade)
@@ -80,7 +93,7 @@ def all_grades(course_id, sessions_id):
     # Holds all total grades
     total_student_grades = []
 
-
+    # Security checks
     if g.user['id'] != course['teacher_id']:
         abort(403)
 
@@ -116,6 +129,8 @@ def all_grades(course_id, sessions_id):
                 )
 
                 student_submissions = cur.fetchall()
+
+
 
                 for submission in student_submissions:
 
