@@ -57,10 +57,13 @@ def init_db():
                 # use the file's text to execute the SQL queries within
                 cur.execute(f.read())
 
-        # Erase existing uploaded files
-        folder = Path('portal/uploads')
-        for file in folder.iterdir():
-            os.remove(file)
+        # Erase existing uploaded files; make directory if it doesn't exist
+        if os.path.isdir('portal/uploads'):
+            folder = Path('portal/uploads')
+            for file in folder.iterdir():
+                os.remove(file)
+        else:
+            os.mkdir('portal/uploads')
 
 
 @click.command("init-db")
