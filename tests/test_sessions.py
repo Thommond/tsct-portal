@@ -9,6 +9,7 @@ from tests.test_courses import login, logout
 def test_edit_session(client):
     """Tests the editSession page with a specific session
     of the course 180 to see if functionallity works"""
+    
     assert client.get('/courses/180/sessions/2/edit').status_code == 302
 
     rv = login(
@@ -53,7 +54,7 @@ def test_edit_session_validation(client, title, times, room, location):
 
 def test_create_session(client):
     """Tests access of the createSession page and the
-    form dat to see if you can successfully create a session
+    form data to see if you can successfully create a session
     in a specific course"""
 
     assert client.get('/courses/180/sessions/create').status_code == 302
@@ -84,6 +85,8 @@ def test_create_session(client):
     ('test', 'test', 'test', '')
 ))
 def test_create_session_validation(client, title, times, room, location):
+    """Tests various scenarios of requests to
+    sessions create to see error response"""
 
     with client:
         login(client, 'teacher@stevenscollege.edu', 'qwerty')

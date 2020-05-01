@@ -83,7 +83,7 @@ def test_types(client, type):
         response = client.get('/course/216/session/1/assignment_details/3')
         # If the assignment is upload type, there should be a submit button
         # on the page.  If not, then there shouldn't be
-        print(type)
+
         if type == 'upload':
             assert b'Submit' in response.data
         else:
@@ -150,7 +150,7 @@ def test_edit_errors(client, name, description, points, edit_date, error):
     response = client.post('/course/180/session/2/assignment/Edit/1/', data={'edit_name': name,
      'edit_desc': description, 'edit_points': points, 'edit_date': edit_date,
      'edit_type': 'standard'}, follow_redirects = True)
-    print(response.data)
+    
     assert error in response.data
 
     rv = logout(client)

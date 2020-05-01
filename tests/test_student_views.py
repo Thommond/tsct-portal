@@ -71,7 +71,7 @@ def test_grades(client):
     assert b'TSCT Portal Login' in rv.data
 
 def test_show_grades(client):
-    """Tests that student can veiw grades on a course"""
+    """Tests that student can view grades on a course"""
 
     with client:
 
