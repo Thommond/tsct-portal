@@ -8,20 +8,17 @@
 
   <h2>Home</h2>
 
-
   <section class='helpfulLinks'>
 
     {% if g.user['role'] == 'teacher' %}
 
-
-        <a href="{{ url_for('courses.course_manage')}}">Course Management</a>
-
+      <a href="{{ url_for('courses.course_manage')}}">Course Management</a>
 
     {% endif %}
 
     {% if g.user['role'] == 'student' %}
 
-    <a href="{{ url_for('student_views.view_schedule') }}">View your schedule</a>
+      <a href="{{ url_for('student_views.view_schedule') }}">View your schedule</a>
 
     {% endif %}
 
@@ -29,8 +26,5 @@
   </section>
 
 </article>
-
-
-
 
 {% endblock %}

@@ -11,6 +11,7 @@
 <section id='hover' class='courseSession'>
 
   <h3>Assignments</h3>
+
   <table>
 
     <tr>
@@ -18,23 +19,25 @@
       <th>Details Page</th>
     </tr>
 
-      <tr class='course'>
+    <tr class='course'>
 
-        {% for assignment in assignments %}
-          {% if assignment['sessions_id'] == session['id'] %}
+      {% for assignment in assignments %}
+        {% if assignment['sessions_id'] == session['id'] %}
 
           <td><h4>{{ assignment['assign_name'] }}</h4></td>
 
-            <td><div class="links">
+          <td>
+            <div class="links">
               <a href="{{ url_for('student_views.assign_view', assign_id=assignment['id'], session_id=session['id'], course_id=session['course_id']) }}">Details</a>
-            </div></td>
+            </div>
+          </td>
 
-          {% endif %}
-        {% endfor %}
+        {% endif %}
+      {% endfor %}
 
-      </tr>
+    </tr>
 
-    </table>
+  </table>
 
 </section>
 

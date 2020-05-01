@@ -200,6 +200,17 @@ ul.submissions li:nth-child(2n) {
   background-color: lightgrey;
 }
 
+#assign_h4 {
+  display: flex;
+  justify-content: left;
+  margin: 1rem;
+}
+
+
+/*Table
+**styles
+*/
+
 table {
   margin-bottom: 1rem;
 }
@@ -291,11 +302,26 @@ td:nth-child(3n)  {
   width: 50px;
 }
 
-#assign_h4 {
-  display: flex;
-  justify-content: left;
-  margin: 1rem;
+#style_tables {
+display: flex;
+flex-direction: row;
+justify-content: left;
 }
+
+#style_tables td {
+  padding: 5px;
+}
+
+@media (min-width:760px) {
+#style_tables {
+  justify-content: center;
+}
+}
+
+/*end
+*of table
+*styles*/
+
 
 @media (min-width: 760px) {
   h1, h2, h3, h4, h5, h6 {
@@ -408,6 +434,7 @@ td:nth-child(3n)  {
   section.grades {
     width: 300px;
   }
+
 }
 
 #style_tables {
@@ -428,25 +455,9 @@ justify-content: left;
 
 
 /**
-*Error Pages
-*/
-
-div.error_pages {
-  display: flex;
-  flex-direction: column;
-  font-size: 15pt;
-  background: #8B1E41;
-}
-
-div.error_pages a:hover {
-  color:white;
-}
-
-
-
-/**
  * Forms
  */
+
 form {
   background-color: #8B1E41;
   border: 1px solid black;
@@ -539,6 +550,28 @@ p.flash {
   }
 }
 
+/**
+*Error Pages
+*/
+
+p.error_p {
+  color: #fbfbfb;
+  font-size: 14pt;
+  padding: 1rem;
+}
+
+
+div.error_pages {
+  display: flex;
+  flex-direction: column;
+  font-size: 15pt;
+  background: #8B1E41;
+
+}
+
+div.error_pages a:hover {
+  color:white;
+}
 
 /**
 * Success Messages
