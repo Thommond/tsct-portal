@@ -51,9 +51,7 @@ def test_assignment_grades(client):
 
     response = client.get('/course/180/session/2/assignments/1/grades')
     # Making sure that students' grades and assignment points display on page
-    # student name, letter grade, submission points, total points
     assert b'bob phillp' in response.data
-    print(response.data)
     assert b'<td>A</td>' in response.data
     assert b'<td>24/25</td>' in response.data
     # Log out

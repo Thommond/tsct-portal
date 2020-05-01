@@ -8,10 +8,11 @@
       <h2>Sorry for your inconvience, the page or action you requested
       seems to not be working.</h2>
 
-      <p>Please press the back button in your browser, or click the link below
-      to go back to the home page.</p>
+    <p class='error_p' >Here is a link to go home.
 
-      <a href="{{ url_for('index')}}">Portal Home</a>
+    <a href="{{ url_for('index')}}">Portal Home</a>
+
+    , or press your browsers back button.</p>
 
     </div>
   {% endblock %}

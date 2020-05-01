@@ -24,7 +24,7 @@
   {% for value in assignment_grade %}
     <tr>
       <td>{{ value[0] }}</td>
-      <td>{{ value[1][0] }}/{{ assignment['points'] }}</td>
+      <td>{{ value[1] }}/{{ assignment['points'] }}</td>
       <td>{{ value[2] }}</td>
     </tr>
   {% endfor %}

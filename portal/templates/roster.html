@@ -11,6 +11,7 @@
     <h2>{{ course['course_title'] + ' ' + session['session_name'] }} Roster</h2>
 
     <a class="back" href="{{ url_for('sessions.session_manage', course_id=course['course_num'])}}">Back</a>
+
   </header>
   <table>
 
@@ -18,15 +19,16 @@
       <th>Students</th>
       <th>Student Emails</th>
     </tr>
-
+    {% for student in students %}
     <tr class="roster">
-      {% for student in students %}
 
-        <td>{{ student['name'] }}</td>
-        <td><span class="email">{{ student['email'] }}</span></td>
 
-      {% endfor %}
+      <td id='roster_name'>{{ student['name'] }}</td>
+      <td><span class="email">{{ student['email'] }}</span></td>
+
+
     </tr>
+    {% endfor %}
   </table>
 </article>
 
