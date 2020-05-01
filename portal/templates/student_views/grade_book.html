@@ -25,15 +25,17 @@
 
       <td>{{ submission['assign_name'] }}</td>
       <td>{{ submission['grade'] }}/{{ submission['points'] }}</td>
-      <td class='feedback'>{% if submission['feedback'] %}
+      <td class='feedback'>
+        {% if submission['feedback'] %}
 
-        {{ submission['feedback'] }}
+          {{ submission['feedback'] }}
 
         {% endif %}
 
         {% if submission['feedback'] == None %}
 
-        <span>No Feedback</span>
+          <span>No Feedback</span>
+          
         {% endif %}
 
       </td>

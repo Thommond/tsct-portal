@@ -8,7 +8,7 @@
 
   <h2>Create a New Assignment for {{ session['session_name'] }}</h2>
 
-<a href="{{ url_for('assign.assign_manage', sessions_id=session['id'], course_id=session['course_id'] )}}" class='back'>Back</a>
+  <a href="{{ url_for('assign.assign_manage', sessions_id=session['id'], course_id=session['course_id'] )}}" class='back'>Back</a>
 
 </header>
 
@@ -19,7 +19,7 @@
 <section class='assignments'>
 
   <form class="assign" action="{{ url_for('assign.assign_create', sessions_id=session['id'], course_id=session['course_id'] )}}" method="post">
-    <!--createing a assignment name-->
+    <!--creating a assignment name-->
     <label for="name">Name
       <input type="text" name="name">
     </label>

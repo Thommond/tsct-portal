@@ -5,14 +5,13 @@
   {% block content %}
     <div class="error_pages">
 
-    <h2>Sorry for your inconvience, the page or action you  requested
-    seems to not be working.</h2>
+      <h2>Sorry for your inconvience, the page or action you requested
+      seems to not be working.</h2>
 
-    <p>Here is a link to go home.</p>
+      <p>Please press the back button in your browser, or click the link below
+      to go back to the home page.</p>
 
-    <a href="{{ url_for('index')}}">Portal Home</a>
-
-    <p>or press your browsers back button.</p>
+      <a href="{{ url_for('index')}}">Portal Home</a>
 
     </div>
   {% endblock %}

@@ -180,7 +180,6 @@ def get_assignment(id, all=False):
                     (id, )
                 )
                 assign = cur.fetchone()
-                print(assign)
             elif all==True:
                 cur.execute(
                     'SELECT *'
