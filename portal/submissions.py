@@ -268,6 +268,14 @@ def upload_submission(course_id, session_id, assign_id):
 
             file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_filename))
 
+            with db.get_db() as con:
+                with con.cursor() as cur:
+
+                    cur.execute('UPDATE submissions SET file_name = %s WHERE id = %s',
+                        (new_filename, submission['id'],))
+                    con.commit()
+
+
             return redirect(url_for('student_views.assign_view', course_id=course['course_num'], session_id=session['id'], assign_id=assignment['id']))
 
         else:

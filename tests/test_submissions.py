@@ -1,5 +1,6 @@
 import pytest
 import io
+from portal import db
 
 def test_submission_list(client):
     """Tests that adding a grade to a student's assignment submission works"""
@@ -137,6 +138,17 @@ def test_file_upload(client):
         file = open('portal/uploads/3-test.txt')
         assert 'Hello World' in file.read()
         file.close()
+
+        # Check that the filenames got added to the submissions table
+
+        with db.get_db() as con:
+            with con.cursor() as cur:
+
+                cur.execute('SELECT * FROM submissions')
+                submissions = cur.fetchall()
+
+        assert submissions[1]['file_name'] == '1-test.txt'
+        assert submissions[2]['file_name'] == '3-test.txt'
 
 
 
