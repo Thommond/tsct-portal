@@ -50,7 +50,7 @@ def create_app(test_config=None):
     # Set the file path for the file uploads folder
     app.config['UPLOAD_FOLDER'] = 'portal/uploads'
     # Sets maximum size for uploaded files at 16mb
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+    app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 
     # Configure App
     # -------------

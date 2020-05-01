@@ -72,6 +72,8 @@ def test_submission_input_validation(client):
 
 def test_submission_form(client):
     """Tests the page that students use to submit assignments"""
+    response = client.get('/course/216/session/1/assignment/2/submit')
+    assert response.status_code == 302
 
     with client:
         client.post('/login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
@@ -82,6 +84,11 @@ def test_submission_form(client):
         assert b'Upload File' in response.data
         assert b'Submit Assignment' in response.data
 
+def test_file_validation(client):
+
+    with client:
+        client.post('/login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
+
         # Submitting with no file selected should return an error
         response = client.post('/course/216/session/1/assignment/2/submit',
             data={'file': ''})
@@ -91,6 +98,10 @@ def test_submission_form(client):
         response = client.post('/course/216/session/1/assignment/2/submit',
             data={'file': (io.BytesIO(b""), '')})
         assert b'File not selected' in response.data
+
+        response = client.post('/course/216/session/1/assignment/2/submit',
+            data={'file': (io.BytesIO(b"This is a bad file"), 'malware.exe')})
+        assert b'File extension not allowed' in response.data
 
 def test_file_upload(client):
 

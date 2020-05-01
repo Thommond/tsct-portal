@@ -117,3 +117,6 @@ dmypy.json
 
 # Ignoring .DS_Store
 .DS_Store
+
+# Uploads Directory
+portal/uploads

@@ -220,9 +220,9 @@ def upload_submission(course_id, session_id, assign_id):
 
         error = None
         # Check if the post request did not contain a file
-        print(request.files)
+
         if 'file' not in request.files:
-            print('hi')
+
             error = 'File not selected'
 
         else :
@@ -231,10 +231,22 @@ def upload_submission(course_id, session_id, assign_id):
             if file.filename == '':
                 error = 'File not selected'
 
+            else:
+
+                # Ensure that the filename is safe
+                filename = secure_filename(file.filename)
+
+                # Check that the file extension is valid
+                allowed_extensions = ['pdf', 'txt', 'doc', 'docx', 'odt', 'png', 'jpg', 'jpeg', 'ppt', 'pptx', 'xsl', 'xslx']
+
+                print(filename.rsplit('.', 1))
+                if filename.rsplit('.', 1)[1].lower() not in allowed_extensions:
+
+                    error = 'File extension not allowed'
+
+
         if error == None:
-            # Ensure that the filename is safe
-            filename = secure_filename(file.filename)
-            print(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+
             file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
 
             return redirect(url_for('student_views.assign_view', course_id=course['course_num'], session_id=session['id'], assign_id=assignment['id']))
