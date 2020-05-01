@@ -129,7 +129,8 @@ a.submit_assignment {
   border-radius: 2px;
   box-shadow: 2px 2px 2px black;
   display: inline-block;
-  margin-bottom: 1rem;
+  margin: 1rem auto;
+  width: 200px
 }
 
 a.submit_assignment:hover {
@@ -407,7 +408,8 @@ td:nth-child(3n)  {
   section.grades {
     width: 300px;
   }
-  
+}
+
 #style_tables {
 display: flex;
 flex-direction: row;

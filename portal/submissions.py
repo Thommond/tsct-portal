@@ -275,11 +275,12 @@ def upload_submission(course_id, session_id, assign_id):
                         (new_filename, submission['id'],))
                     con.commit()
 
+            flash('Assignment submitted successfully', 'success')
 
             return redirect(url_for('student_views.assign_view', course_id=course['course_num'], session_id=session['id'], assign_id=assignment['id']))
 
         else:
-            flash(error)
+            flash(error, 'flash')
 
 
     return render_template('submissions/submit_form.html', course=course, session=session, assignment=assignment)

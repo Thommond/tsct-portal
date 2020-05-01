@@ -82,7 +82,7 @@ def test_submission_form(client):
         response = client.get('/course/216/session/1/assignment/2/submit')
         assert response.status_code == 200
 
-        assert b'Upload File' in response.data
+        assert b'Upload Assignment:' in response.data
         assert b'Submit Assignment' in response.data
 
 def test_file_validation(client):
@@ -115,8 +115,9 @@ def test_file_upload(client):
         client.post('/login', data={'email': 'student2@stevenscollege.edu', 'password': '123456789'})
         # As a student, upload a file
         response = client.post('/course/216/session/1/assignment/2/submit',
-            data={'file': (io.BytesIO(b"This is a test file"), 'test.txt')})
-        assert response.status_code == 302
+            data={'file': (io.BytesIO(b"This is a test file"), 'test.txt')}, follow_redirects=True)
+        assert response.status_code == 200
+        assert b'Assignment submitted successfully' in response.data
 
         # Check that an uploaded file appears in the file system
         file = open('portal/uploads/1-test.txt')
