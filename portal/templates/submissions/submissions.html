@@ -5,7 +5,7 @@
 {% block content %}
 
 <header class="submissions">
-  <h2>Submissons for assignment: {{ assignment['assign_name'] }}</h2>
+  <h2>Submissions for assignment: {{ assignment['assign_name'] }}</h2>
   <a class="back" href="{{ url_for('assign.assign_manage', course_id = session['course_id'], sessions_id = session['id']) }}">Back</a>
 </header>
 
@@ -14,7 +14,7 @@
 
     <tr>
       <th>Students</th>
-      <th>Enter Grade Page</th>
+      <th>Grade Submission</th>
     </tr>
 
     {% for submission in submissions %}
@@ -24,7 +24,7 @@
         <td><a class='enter_grade' href="{{ url_for('submissions.grade_submission', course_id=session['course_id'], session_id=session['id'], assignment_id=assignment['id'], submission_id=submission['id']) }}">Enter Grade</a></td>
       </tr>
 
-      {% endfor %}
-    </table>
+    {% endfor %}
+  </table>
 <section class='grade'>
 {% endblock %}
