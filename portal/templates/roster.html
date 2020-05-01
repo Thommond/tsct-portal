@@ -19,15 +19,16 @@
       <th>Students</th>
       <th>Student Emails</th>
     </tr>
-
-  <tr class="roster">
     {% for student in students %}
+    <tr class="roster">
+
 
       <td>{{ student['name'] }}</td>
       <td><span class="email">{{ student['email'] }}</span></td>
 
+
+    </tr>
     {% endfor %}
-  </tr>
   </table>
 </article>
 
