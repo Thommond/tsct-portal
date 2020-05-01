@@ -41,7 +41,7 @@ def test_login_validation(client, email, password, error):
 
 
 def test_logout(client):
-
+    
     client.post('/login', data={'email': 'teacher@stevenscollege.edu', 'password': 'qwerty'})
 
     with client:

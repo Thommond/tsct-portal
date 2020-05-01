@@ -52,7 +52,9 @@ def session_edit(course_id, sessions_id):
                         """,
                         (name, times, room, location, sessions_id, course['course_num'], )
                         )
+
                     con.commit()
+
 
                     return redirect(url_for( 'sessions.session_manage', course_id=course['course_num']))
 
@@ -103,6 +105,8 @@ def session_create(course_id):
                     (times, title, room, location, course_id, )
                     )
                     con.commit()
+
+
 
                     return redirect(url_for("sessions.session_manage", course_id=course['course_num']))
 

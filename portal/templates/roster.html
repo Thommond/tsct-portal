@@ -11,23 +11,24 @@
     <h2>{{ course['course_title'] + ' ' + session['session_name'] }} Roster</h2>
 
     <a class="back" href="{{ url_for('sessions.session_manage', course_id=course['course_num'])}}">Back</a>
+
   </header>
-<section class='roster'>
   <table>
 
     <tr>
       <th>Students</th>
       <th>Student Emails</th>
     </tr>
-
-  <tr class="roster">
     {% for student in students %}
+    <tr class="roster">
 
-      <td>{{ student['name'] }}</td>
+
+      <td id='roster_name'>{{ student['name'] }}</td>
       <td><span class="email">{{ student['email'] }}</span></td>
 
+
+    </tr>
     {% endfor %}
-  </tr>
   </table>
 </article>
 

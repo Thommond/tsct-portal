@@ -52,7 +52,7 @@ def test_edit(client):
         assert client.get('/courses/180/edit').status_code == 200
 
         response = client.get('/courses/180/edit')
-        assert b'The courses current information' in response.data
+        assert b"The course's current information" in response.data
 
         response2 = client.post('/courses/180/edit', data={'editTitle': 'Software Project 6',
         'editDesc': 'Making a website', 'editCredit': 3}, follow_redirects=True)

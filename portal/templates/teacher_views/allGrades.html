@@ -12,20 +12,20 @@
 <h3>Grades</h3>
 
 <div id='style_tables'>
-<table id='student'>
+  <table id='student'>
 
-  <tr>
-    <th>Student</th>
-    <th>Grade</th>
-  </tr>
+    <tr>
+      <th>Student</th>
+      <th>Grade</th>
+    </tr>
 
-  {% for value in letter_grade %}
-  <tr>
-    <td>{{ value[1] }}</td>
-    <td>{{ value[0] }}</td>
-  </tr>
-  {% endfor %}
+    {% for value in letter_grade %}
+    <tr>
+      <td>{{ value[1] }}</td>
+      <td>{{ value[0] }}</td>
+    </tr>
+    {% endfor %}
 
-</table>
+  </table>
 </div>
  {% endblock %}

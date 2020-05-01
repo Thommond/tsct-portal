@@ -14,18 +14,21 @@
 <h4 id="assign_h4">Description: {{ assignment['description'] }}</h4>
 
 <table>
+
   <tr>
     <th>Student Name</th>
     <th>Grade</th>
     <th>Letter Grade</th>
   </tr>
-    {% for value in assignment_grade %}
+
+  {% for value in assignment_grade %}
     <tr>
       <td>{{ value[0] }}</td>
-      <td>{{ value[1][0] }}/{{ assignment['points'] }}</td>
+      <td>{{ value[1] }}/{{ assignment['points'] }}</td>
       <td>{{ value[2] }}</td>
     </tr>
-    {% endfor %}
+  {% endfor %}
+
 </table>
 
 {% endblock %}
