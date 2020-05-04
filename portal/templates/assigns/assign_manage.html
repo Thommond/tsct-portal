@@ -55,9 +55,9 @@
 
   </table>
 
-  <h3>Click the link below to create a new assignment</h3>
+  <h3><a href="{{ url_for('assign.assign_create', course_id=session['course_id'], sessions_id=session['id'])}}" class='back'>Add Assignment</a></h3>
 
-  <a href="{{ url_for('assign.assign_create', course_id=session['course_id'], sessions_id=session['id'])}}">Add Assignment</a>
+
 
 </section>
 

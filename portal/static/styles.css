@@ -560,51 +560,6 @@ div.error_pages a:hover {
 * Success Messages
 */
 
-.tip {
-  position: fixed;
-  top: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border: 2px solid black;
-  border-radius: 10%;
-  z-index: 10;
-  background-color: #8B1E41;
-  width: 300px;
-  max-width: 80%;
-}
-
-.header_pop {
-  padding: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid black;
-}
-
-.header_pop .title_pop {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.header_pop .close_button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 1.5rem;
-}
-
-.body_pop {
-  padding: 10px 15px;
-}
-
-
-
-
-
-
-
-
 p.success {
   align-items: center;
   border: 1px solid black;

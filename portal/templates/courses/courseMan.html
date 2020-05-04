@@ -16,23 +16,6 @@
   <!--Start of teacher edit section-->
   <h3>Courses</h3>
 
-  <button type="submit" name="helpful">Helpful Tip</button>
-  <div class="tip" id='assignment_tip'>
-    <div class="header_pop">
-      <div class="title_pop">
-          Helpful Tip for Schedule
-      </div>
-      <button class='close_button' name="button">&times;</button>
-    </div>
-    <div class="boby_pop">
-      Can't find assignments for the course?
-      If you find the title of the course which you would like
-      to see the assignments. Then hover over the title of the
-      course. Click the course link when hovering.
-    </div>
-  </div>
-<div id='overlay'>
-
 
   <table class='courses'>
 
@@ -60,10 +43,8 @@
 
   </table>
 
-  <h3>Click the link below to create a new course</h3>
-
-  <a href="{{ url_for('courses.course_create')}}" name="createButton">Add Course</a>
+  <h3>  <a href="{{ url_for('courses.course_create')}}" class='back' name="createButton">Add Course</a></h3>
 
 </section><!-- end of teacher edit section-->
-</div>
+
 {% endblock %}

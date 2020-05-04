@@ -63,9 +63,7 @@
 
 
   <!--Below is for create Session link and info-->
-  <h3>Click the link below to create a new session</h3>
-
-  <a href="{{ url_for('sessions.session_create', course_id=course['course_num'] )}}">Add Session</a>
+  <h3>  <a href="{{ url_for('sessions.session_create', course_id=course['course_num'] )}}" class='back'>Add Session</a></h3>
 
 
 </section><!--End section-->
