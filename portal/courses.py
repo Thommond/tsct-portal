@@ -14,7 +14,9 @@ def course_manage():
     them to edit and create courses"""
 
     cur = db.get_db().cursor()
-    cur.execute('SELECT * FROM courses')
+    cur.execute('SELECT * FROM courses WHERE teacher_id = %s',
+    (g.user['id'], )
+    )
     courses = cur.fetchall()
 
     cur.close()
@@ -38,7 +40,6 @@ def course_create():
         course_credit = request.form['courseCredits']
         course_major = request.form['major_name']
         error = None
-        result = isinstance(course_major, int)
 
         # Checks if course_number is a number
         try:

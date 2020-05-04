@@ -13,6 +13,15 @@
 <section id='hover' class='student_grades'>
   <table class="schedule">
 
+    <aside class="helpful_tip">
+      
+      <h4>Helpful tip</h4>
+
+      <p>Click the course title for info on the course and
+        the assignments for each course.</p>
+
+    </aside>
+
     <tr>
 
       <th>Title</th>
@@ -29,7 +38,7 @@
 
       <tr>
 
-        <td class='course_name'><a href="{{ url_for('student_views.session_assignments', session_id=info['id'], course_id=info['course_id']) }}">{{ info['session_name'] }}</a></td>
+        <td class='course_name'><a href="{{ url_for('student_views.session_assignments', session_id=info['id'], course_id=info['course_id']) }}">{{ info['session_name']}}</a></td>
         <td class='table_info'>{{ info['description'] }}</td>
         <td class='table_info'>{{ info['times'] }}</td>
         <td class='table_info'>{{ info['location'] }}</td>
