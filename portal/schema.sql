@@ -74,6 +74,6 @@ CREATE TABLE submissions (
   assignment_id bigint REFERENCES assignments (id),
   student_id bigint REFERENCES users (id),
   grade integer,
-  feedback text,
+  feedback varchar(500),
   file_name text
 );

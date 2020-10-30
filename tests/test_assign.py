@@ -103,7 +103,7 @@ def test_assign_manage(client):
      #test data of the page
     response = client.get('/course/180/session/2/assignments/')
     assert b'Assignments for CSET-180-A' in response.data
-    assert b'Click the link below to create a new assignment' in response.data
+    assert b'Add Assignment' in response.data
      #logout
     rv = logout(client)
     assert b'TSCT Portal Login' in rv.data
@@ -161,7 +161,7 @@ def test_edit_errors(client, name, description, points, edit_date, error):
 def test_teacher(client):
     """check that only teacher who own a specific
     session can access specific assignments"""
-    
+
     assert client.get('/course/180/session/2/assignment/Edit/2/').status_code == 302
 
     rv = login(

@@ -16,6 +16,7 @@
   <!--Start of teacher edit section-->
   <h3>Courses</h3>
 
+
   <table class='courses'>
 
     <tr>
@@ -25,8 +26,6 @@
     </tr>
 
   {% for course in courses %}
-
-    {% if g.user['id'] == course['teacher_id'] %}
 
         <tr class='course'>
 
@@ -39,15 +38,13 @@
 
         </tr>
 
-      {% endif %}
 
     {% endfor %}
 
   </table>
 
-  <h3>Click the link below to create a new course</h3>
-
-  <a href="{{ url_for('courses.course_create')}}" name="createButton">Add Course</a>
+  <h3>  <a href="{{ url_for('courses.course_create')}}" class='back' name="createButton">Add Course</a></h3>
 
 </section><!-- end of teacher edit section-->
+
 {% endblock %}

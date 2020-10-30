@@ -44,6 +44,7 @@ def assign_grade(course_id, sessions_id, assign_id):
             # all assignments per student
             assignment = cur.fetchone()
 
+
             for student in students:
                 # default of zero
                 points = 0
@@ -58,24 +59,26 @@ def assign_grade(course_id, sessions_id, assign_id):
 
                 student_submission = cur.fetchone()
 
-                
+                if student_submission == None:
+                    student_submission = [0]
 
-                # If there is no submission, set a default grade of zero
-                for submission_of_student in student_submission:
+                if student_submission != None:
+                    # If there is no submission, set a default grade of zero
+                    for submission_of_student in student_submission:
 
-                    if submission_of_student == None:
-                        submission_of_student = 0
+                        if submission_of_student == None:
+                            submission_of_student = 0
 
 
-                    if submission_of_student != None:
+                        if submission_of_student != None:
 
-                        #Get letter grade of student for assignment
-                        letter_grade = submissions.letter_grade(submission_of_student, assignment['points'])
-                        #Set tuple equal to var so values can be iterated properly
-                        one_assignment_grade = (student['name'], submission_of_student, letter_grade)
-                        # Adding submission to list
-                        students_assign_grade.append(one_assignment_grade)
-
+                            #Get letter grade of student for assignment
+                            letter_grade = submissions.letter_grade(submission_of_student, assignment['points'])
+                            #Set tuple equal to var so values can be iterated properly
+                            one_assignment_grade = (student['name'], submission_of_student, letter_grade)
+                            # Adding submission to list
+                            students_assign_grade.append(one_assignment_grade)
+                            print(students_assign_grade)
 
 
     return render_template('teacher_views/assign_grades.html', students=students, session=session, assignment=assignment, assignment_grade=students_assign_grade)

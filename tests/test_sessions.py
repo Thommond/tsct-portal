@@ -9,7 +9,7 @@ from tests.test_courses import login, logout
 def test_edit_session(client):
     """Tests the editSession page with a specific session
     of the course 180 to see if functionallity works"""
-    
+
     assert client.get('/courses/180/sessions/2/edit').status_code == 302
 
     rv = login(
@@ -72,7 +72,7 @@ def test_create_session(client):
         follow_redirects=True)
         assert b'Sessions for course Software Project 2' in response_2.data
         assert b'Software Project 2-C' in response_2.data
-        assert b'Click the link below to create a new session' in response_2.data
+        assert b'Add Session' in response_2.data
 
         rv = logout(client)
         assert b'TSCT Portal Login' in rv.data
@@ -113,7 +113,7 @@ def test_course_sessions(client):
     with client:
         response = client.get('/courses/180/sessions')
         assert b'<h2>Sessions for course Software Project 2' in response.data
-        assert b'<h3>Click the link below to create a new session</h3>' in response.data
+        assert b'Add Session' in response.data
         assert b'CSET-180-A' in response.data
 
         rv = logout(client)

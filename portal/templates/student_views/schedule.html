@@ -11,11 +11,16 @@
 
 </header>
 <section id='hover' class='student_grades'>
+
+
   <table class="schedule">
 
-    <tr>
 
+
+
+    <tr>
       <th>Title</th>
+      <th>Schedule</th>
       <th>Description</th>
       <th>Time</th>
       <th>Location</th>
@@ -29,7 +34,8 @@
 
       <tr>
 
-        <td class='course_name'><a href="{{ url_for('student_views.session_assignments', session_id=info['id'], course_id=info['course_id']) }}">{{ info['session_name'] }}</a></td>
+        <td class='course_name'>{{ info['session_name']}}</td>
+        <td><a href="{{ url_for('student_views.session_assignments', session_id=info['id'], course_id=info['course_id']) }}">Schedule</a></td>
         <td class='table_info'>{{ info['description'] }}</td>
         <td class='table_info'>{{ info['times'] }}</td>
         <td class='table_info'>{{ info['location'] }}</td>
