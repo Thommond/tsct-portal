@@ -13,7 +13,6 @@ VALUES ('zach fedor', 1,'teacher@stevenscollege.edu', 'pbkdf2:sha256:150000$ZZ1n
        ('Ms.Sullivan', 4,'teacher2@stevenscollege.edu', 'pbkdf2:sha256:150000$DPyRMV3A$85b570c573c7069f4a8a4d6c06f580ca35ba1bb3ac4edac87bf865ba1155f303', 'teacher'),
        ('Marisa Kirisame', 3, 'student2@stevenscollege.edu', 'pbkdf2:sha256:150000$lHslL9Bd$f784056cba62ecd51de8f8e6251eb8bdf857cf2d2966827546720419f92bb9d5', 'student');
 
-
 INSERT INTO courses (course_num, course_title, description, credits, teacher_id, major_id)
 VALUES (180, 'Software Project 2', 'Recreation of the portal', 3, 1, 1),
         (216, 'Technical Writing', 'The practice of proffesional writing',
